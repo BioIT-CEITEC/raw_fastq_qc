@@ -1,0 +1,55 @@
+{
+  "workflow_description": {
+    "name":"raw_fastq_qc",
+    "version": 1.0,
+    "label":"Raw fastq QC",
+    "type":"raw_fastq_qc",
+    "inputs":"raw_fastq/{sample}_R?.fastq.gz",
+    "outputs":[
+      "raw_fastqc.multiqc_report.html",
+      "raw_fastq_qc/{sample}_R?.fastqc.html"
+    ]
+  },
+  "general_params": [
+    "sample_name",
+    "run_forward_read_length",
+    "run_reverse_read_length",
+    "lib_forward_read_length",
+    "lib_reverse_read_length"
+  ],
+  "gui_params" : {
+    "primary": {
+      "UMI": {
+        "label": "UMI",
+        "type": "enum",
+        "default": "no_umi",
+        "list": {
+          "no_umi": "No UMI",
+          "BRONCO": "BRONCO",
+          "custom": "Custom specified UMI"
+        }
+      },
+      "UMI_R1_end": {
+        "label": "UMI R1 end",
+        "type": "int",
+        "default": 0,
+        "conditions": {
+          "relevance": {
+            "operand": "equal",
+            "negation": false,
+            "values": {
+              "UMI": "custom"
+            }
+          }
+        }
+      }
+    },
+    "detailed": {
+      "additional_fastqc_options": {
+        "label": "Additional options to fastqc call",
+        "type": "string",
+        "default": ""
+      }
+    }
+  }
+}

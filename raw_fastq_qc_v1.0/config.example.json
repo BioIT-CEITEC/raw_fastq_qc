@@ -1,0 +1,15 @@
+{
+  "run_forward_read_length": 150,
+  "run_reverse_read_length": 150,
+  "lib_forward_read_length": 150,
+  "lib_reverse_read_length": 150,
+  "UMI":"no_umi",
+  "samples": {
+    "id1":{
+      "sample_name": "s1"
+    },
+    "id2":{
+      "sample_name": "s2"
+    }
+  }
+}
