@@ -38,18 +38,17 @@ f.write("## COMMAND: "+command+"\n")
 f.close()
 shell(command)
 
-command = "rm -f "+snakemake.params.html+" >> "+snakemake.log.run+" 2>&1"
-f = open(snakemake.log.run, 'at')
-f.write("## COMMAND: "+command+"\n")
-f.close()
-shell(command)
+#command = "rm -f "+snakemake.params.html+" >> "+snakemake.log.run+" 2>&1"
+#f = open(snakemake.log.run, 'at')
+#f.write("## COMMAND: "+command+"\n")
+#f.close()
+#shell(command)
 
-
-f = open(snakemake.log.run, 'at')
-command = "cat `ls -tr "+ os.path.dirname(snakemake.log.run) +"/*.log` > "+snakemake.log.run.replace("/raw_fastq_qc_"+snakemake.wildcards.pair+".log",".bcl2fastq.log")
-f.write("## COMMAND: "+command+"\n")
-f.close()
-shell(command)
+#command = "cat `ls -tr "+ os.path.dirname(snakemake.log.run) +"/*.log` > "+snakemake.log.run.replace("test/raw_fastq_qc_"+snakemake.wildcards.read_pair_tag+".log",".bcl2fastq.log")
+#f = open(snakemake.log.run, 'at')
+#f.write("## COMMAND: "+command+"\n")
+#f.close()
+#shell(command)
 
 # OLD STUFF:
 # run:

@@ -28,19 +28,16 @@ f.write("## COMMAND: "+command+"\n")
 f.close()
 shell(command)
 
-if snakemake.params.run_log_dir:
-    read_sum = 0
-    for fastqc_file in snakemake.input.html:
-        f = open(fastqc_file, 'r')
-        for line in f:
-            if "Total Sequences</td><td>" in line:
-                num = re.sub('.*Total Sequences</td><td>([0-9]*)</td>.*',r'\1',line)
-                num = int(num)
+#if snakemake.params.run_log_dir:
+#    read_sum = 0
+#    for fastqc_file in snakemake.input.html:
+#        f = open(fastqc_file, 'r')
+#        for line in f:
+#            if "Total Sequences</td><td>" in line:
+#                num = re.sub('.*Total Sequences</td><td>([0-9]*)</td>.*',r'\1',line)
+#                num = int(num)
+#        read_sum = read_sum + num
 
-
-
-        read_sum = read_sum + num
-
-    f = open(snakemake.params.run_log_dir + "/per_library_read_sum.tsv", 'a+')
-    f.write("\t"+str(read_sum)+"\n")
-    f.close()
+    #f = open(snakemake.params.run_log_dir + "/per_library_read_sum.tsv", 'a+')
+    #f.write("\t"+str(read_sum)+"\n")
+    #f.close()
