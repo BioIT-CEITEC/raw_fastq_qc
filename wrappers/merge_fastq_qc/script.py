@@ -18,7 +18,7 @@ f.write("## VERSION: "+version+"\n")
 f.close()
 
 command = TOOL+" -f -n "\
-              +snakemake.output.html+" ./"\
+              +snakemake.output.html+" raw_fastq_qc"\
               " --cl_config \"{{read_count_multiplier: 0.001, read_count_prefix: 'K', read_count_desc: 'thousands' }}\" >> "+snakemake.log.run+" 2>&1"
 f = open(snakemake.log.run, 'at')
 f.write("## COMMAND: "+command+"\n")
