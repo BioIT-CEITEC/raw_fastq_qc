@@ -21,8 +21,6 @@ wildcard_constraints:
 
 rule all:
    input: "raw_fastqc.multiqc_report.html"
-# rule all:
-#     input: expand("raw_fastq_qc/{sample}_{read_pair_tag}_fastqc.html",sample = sample_tab.sample_name,read_pair_tag = read_pair_tags)
 
 ##### Modules #####
 

@@ -17,8 +17,9 @@ f = open(snakemake.log.run, 'at')
 f.write("## VERSION: "+version+"\n")
 f.close()
 
-command = TOOL+" -f -n "+snakemake.output.html+\
-          " --cl_config \"{{read_count_multiplier: 0.001, read_count_prefix: 'K', read_count_desc: 'thousands' }}\" >> "+snakemake.log.run+" 2>&1"
+command = TOOL+" -f -n "\
+              +snakemake.output.html+" ./"\
+              " --cl_config \"{{read_count_multiplier: 0.001, read_count_prefix: 'K', read_count_desc: 'thousands' }}\" >> "+snakemake.log.run+" 2>&1"
 f = open(snakemake.log.run, 'at')
 f.write("## COMMAND: "+command+"\n")
 f.close()
