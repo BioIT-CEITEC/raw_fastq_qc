@@ -20,7 +20,8 @@ wildcard_constraints:
 ##### Target rules #####
 
 rule all:
-   input: "raw_fastqc.multiqc_report.html"
+   input: "raw_fastqc.multiqc_report.html",
+          "reports/raw_fastq_qc/index.html"
 
 ##### Modules #####
 

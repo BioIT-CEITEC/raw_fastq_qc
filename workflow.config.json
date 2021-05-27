@@ -8,6 +8,9 @@
     "outputs":[
       "raw_fastqc.multiqc_report.html",
       "raw_fastq_qc/{sample}*fastqc.html"
+    ],
+    "reports":[
+      "reports/raw_fastq_qc/*"
     ]
   },
   "general_params": [

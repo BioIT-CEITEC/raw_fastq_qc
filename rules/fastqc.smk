@@ -3,6 +3,7 @@
 rule merge_fastq_qc:
    input:  html = expand("raw_fastq_qc/{sample}{read_pair_tag}_fastqc.html",sample = sample_tab.sample_name,read_pair_tag = read_pair_tags)
    output: html = "raw_fastqc.multiqc_report.html",
+           report = "reports/raw_fastq_qc/index.html",
    log:    "logs/merge_fastq_qc.log"
    conda:  "../wrappers/merge_fastq_qc/env.yaml"
    script: "../wrappers/merge_fastq_qc/script.py"
