@@ -4,13 +4,14 @@
     "version": 1.0,
     "label":"Raw fastq QC",
     "type":"raw_fastq_qc",
-    "inputs":"raw_fastq/{sample}*fastq.gz",
+    "inputs":"qc_reports/{sample}*fastq.gz",
     "outputs":[
-      "raw_fastqc.multiqc_report.html",
-      "raw_fastq_qc/{sample}*fastqc.html"
+      "qc_reports/raw_fastq_multiqc.html",
+      "qc_reports/{sample}/fastqc/fastqc*"
     ],
+    "report_index": "qc_reports/raw_fastq_multiqc.html",
     "reports":[
-      "reports/raw_fastq_qc/*"
+      "qc_reports/raw_fastq_multiqc.html"
     ]
   },
   "general_params": [
