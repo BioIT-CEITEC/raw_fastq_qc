@@ -4,7 +4,7 @@
     "version": 1.0,
     "label":"Raw fastq QC",
     "type":"raw_fastq_qc",
-    "inputs":"qc_reports/{sample}*fastq.gz",
+    "inputs":"raw_fastq/{sample}*fastq.gz",
     "outputs":[
       "qc_reports/raw_fastq_multiqc.html",
       "qc_reports/{sample}/fastqc/fastqc*"

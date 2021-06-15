@@ -6,7 +6,6 @@ min_version("5.18.0")
 ##### Config processing #####
 
 sample_tab = pd.DataFrame.from_dict(config["samples"],orient="index")
-print(sample_tab)
 
 if config["lib_reverse_read_length"] == 0:
     read_pair_tags = [""]
