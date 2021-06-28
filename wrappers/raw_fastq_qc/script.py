@@ -49,6 +49,12 @@ f.write("## COMMAND: "+command+"\n")
 f.close()
 shell(command)
 
+command = "mv " + dirname(snakemake.output.html) + "/" + basename(raw_tag_input_fastq).replace(".fastq.gz","_fastqc.zip") + " " + snakemake.output.html.replace("html", "zip")
+f = open(log_filename, 'at')
+f.write("## COMMAND: "+command+"\n")
+f.close()
+shell(command)
+
 # command = ' sed -r -i "s:<h2>[ ]*Summary[ ]*<\/h2><ul>:&<li><b>Return to <a href=\'../'+snakemake.params.lib_name+'.final_report.html\'>start page<\/a><\/b><\/li>:" '+snakemake.output.html
 # f = open(log_filename, 'at')
 # f.write("## COMMAND: "+command+"\n")
