@@ -21,14 +21,5 @@
     "run_reverse_read_length",
     "lib_forward_read_length",
     "lib_reverse_read_length"
-  ],
-  "gui_params" : {
-    "detailed": {
-      "additional_fastqc_options": {
-        "label": "Additional options to fastqc call",
-        "type": "string",
-        "default": ""
-      }
-    }
-  }
+  ]
 }
