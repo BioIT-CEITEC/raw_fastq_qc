@@ -49,7 +49,7 @@ f.write("## COMMAND: "+command+"\n")
 f.close()
 shell(command)
 
-command = "mv " + dirname(snakemake.output.html) + "/" + basename(raw_tag_input_fastq).replace(".fastq.gz","_fastqc.zip") + " " + snakemake.output.html.replace(".html", "_fastqc.zip")
+command = "mv " + dirname(snakemake.output.html) + "/" + basename(raw_tag_input_fastq).replace(".fastq.gz","_fastqc.zip") + " " + snakemake.output.html.replace("html", "zip")
 f = open(log_filename, 'at')
 f.write("## COMMAND: "+command+"\n")
 f.close()
