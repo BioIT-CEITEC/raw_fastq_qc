@@ -52,7 +52,7 @@ shell(command)
 if snakemake.wildcards.read_pair_tag == "":
     zip_out_basename = "SE_fastqc.zip"
 else:
-    zip_out_basename = snakemake.wildcards.read_pair_tag + "fastqc.zip"
+    zip_out_basename = snakemake.wildcards.read_pair_tag.replace("_","") + "_fastqc.zip"
 
 command = "mv " + dirname(snakemake.output.html) + "/" + basename(raw_tag_input_fastq).replace(".fastq.gz","_fastqc.zip") + " " + dirname(snakemake.output.html) + "/" + zip_out_basename
 f = open(log_filename, 'at')
