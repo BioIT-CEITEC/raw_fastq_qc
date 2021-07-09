@@ -49,7 +49,12 @@ f.write("## COMMAND: "+command+"\n")
 f.close()
 shell(command)
 
-command = "mv " + dirname(snakemake.output.html) + "/" + basename(raw_tag_input_fastq).replace(".fastq.gz","_fastqc.zip") + " " + snakemake.output.html.replace("html", "zip")
+if snakemake.wildcards.read_pair_tag == "":
+    zip_out_basename = "SE_fastqc.zip"
+else:
+    zip_out_basename = snakemake.wildcards.read_pair_tag + "fastqc.zip"
+
+command = "mv " + dirname(snakemake.output.html) + "/" + basename(raw_tag_input_fastq).replace(".fastq.gz","_fastqc.zip") + " " + dirname(snakemake.output.html) + "/" + zip_out_basename
 f = open(log_filename, 'at')
 f.write("## COMMAND: "+command+"\n")
 f.close()
