@@ -9,9 +9,9 @@ rule merge_fastq_qc:
 
 
 rule raw_fastq_qc:
-    input:  raw_fastq = "raw_fastq/{sample}{read_pair_tag}.fastq.gz"
+    input:  raw_fastq = "raw_fastq/{sample}{read_pair_tag}.fastq.gz",
     output: html = "qc_reports/{sample}/raw_fastqc/fastqc{read_pair_tag}.html"
-    log:    "sample_logs/{sample}/raw_fastqc{read_pair_tag}.log"
+    log:    "logs/{sample}/raw_fastqc{read_pair_tag}.log"
     params: extra = "--noextract --format fastq --nogroup",
             # lib_name = config["library_name"]
     threads:  1
