@@ -1,0 +1,6 @@
+New settings:
+  Access Key: acgt
+  Secret Key: P84RsiL5TmHu0Ijd
+  Default Region: US
+  S3 Endpoint: storage-elixir1.cerit-sc.cz
+  Bucket: acgt
