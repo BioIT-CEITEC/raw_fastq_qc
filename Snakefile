@@ -8,11 +8,11 @@ min_version("5.18.0")
 
 AWS_ID="acgt"
 AWS_KEY="P84RsiL5TmHu0Ijd"
-S3_BUCKET = "S3acgt"
+S3_BUCKET = "acgt"
 path = "/sequia/210923__raw_fastq_qc__MOII_e91_krve__960/"
 
 S3 = S3RemoteProvider(host="https://storage-elixir1.cerit-sc.cz",access_key_id=AWS_ID, secret_access_key=AWS_KEY)
-client = boto3.client('s3', aws_access_key_id=AWS_ID, aws_secret_access_key=AWS_KEY, region_name="", endpoint_url="https://storage-elixir1.cerit-sc.cz")
+# client = boto3.client('s3', aws_access_key_id=AWS_ID, aws_secret_access_key=AWS_KEY, region_name="US", endpoint_url="https://storage-elixir1.cerit-sc.cz")
 
 #configfile: S3.remote(S3_BUCKET + path + "config.json")
 
@@ -37,7 +37,7 @@ sample_tab = pd.DataFrame.from_dict(config["samples"],orient="index")
 if config["lib_reverse_read_length"] == 0:
     read_pair_tags = [""]
 else:
-    read_pair_tags = ["R1_","_R2"]
+    read_pair_tags = ["_R1","_R2"]
 
 wildcard_constraints:
     sample = "|".join(sample_tab.sample_name),
@@ -46,7 +46,7 @@ wildcard_constraints:
 ##### Target rules #####
 
 rule all:
-   input: S3.remote("S3acgt/sequia/210923__raw_fastq_qc__MOII_e91_krve__960/qc_reports/raw_fastq_multiqc.html")
+   input: S3.remote("acgt/sequia/210923__raw_fastq_qc__MOII_e91_krve__960/qc_reports/raw_fastq_multiqc.html")
 
 ##### Modules #####
 
