@@ -14,9 +14,7 @@ path = "/sequia/210923__raw_fastq_qc__MOII_e91_krve__960/"
 S3 = S3RemoteProvider(host="https://storage-elixir1.cerit-sc.cz",access_key_id=AWS_ID, secret_access_key=AWS_KEY)
 # client = boto3.client('s3', aws_access_key_id=AWS_ID, aws_secret_access_key=AWS_KEY, region_name="US", endpoint_url="https://storage-elixir1.cerit-sc.cz")
 
-#configfile: S3.remote(S3_BUCKET + path + "config.json")
-
-
+configfile: S3.remote("acgt/sequia/210923__raw_fastq_qc__MOII_e91_krve__960/configfile.json")
 
 def fetch_data(file_path):
     if config["computing_type"] == "kubernetes":
