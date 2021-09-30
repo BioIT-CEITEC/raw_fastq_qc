@@ -3,7 +3,7 @@
 rule merge_fastq_qc:
    input:  html = S3.remote(expand("acgt/sequia/210923__raw_fastq_qc__MOII_e91_krve__960/qc_reports/{sample}/raw_fastqc/fastqc{read_pair_tag}.html",sample = sample_tab.sample_name,read_pair_tag = read_pair_tags))
    output: html = S3.remote("acgt/sequia/210923__raw_fastq_qc__MOII_e91_krve__960/qc_reports/raw_fastq_multiqc.html")
-   log:    "acgt/sequia/210923__raw_fastq_qc__MOII_e91_krve__960/logs/merge_fastq_qc.log"
+   log:    S3.remote("acgt/sequia/210923__raw_fastq_qc__MOII_e91_krve__960/logs/merge_fastq_qc.log")
    conda:  "../wrappers/merge_fastq_qc/env.yaml"
    script: "../wrappers/merge_fastq_qc/script.py"
 
