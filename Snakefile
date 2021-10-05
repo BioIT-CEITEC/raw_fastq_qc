@@ -21,9 +21,15 @@ S3 = S3RemoteProvider(host="https://storage-elixir1.cerit-sc.cz",access_key_id=A
 def fetch_data(file_path):
     if config["computing_type"] == "kubernetes":
         if isinstance(file_path, list) and len(file_path) == 1:
+            print(S3_BUCKET + path)
+            print(file_path[0])
             return S3.remote(S3_BUCKET + path + file_path[0])
+            # return S3.remote(S3_BUCKET + path + "".join(file_path[0]))
         else:
+            print(S3_BUCKET + path)
+            print(file_path[0])
             return S3.remote(S3_BUCKET + path + file_path)
+            # return S3.remote(S3_BUCKET + path + "".join(file_path))
     else:
         if isinstance(file_path, list) and len(file_path) == 1:
             return file_path[0]
@@ -47,6 +53,7 @@ wildcard_constraints:
 
 rule all:
    input: S3.remote("acgt/sequia/210923__raw_fastq_qc__MOII_e91_krve__960/qc_reports/raw_fastq_multiqc.html")
+   #input: fetch_data("qc_reports/raw_fastq_multiqc.html")
 
 ##### Modules #####
 
