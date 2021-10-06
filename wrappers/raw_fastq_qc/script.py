@@ -23,7 +23,13 @@ f.write("## COMMAND: "+command+"\n")
 f.close()
 shell(command)
 
-raw_tag_input_fastq = dirname(snakemake.input.raw_fastq) + "/" + snakemake.wildcards.sample + "_raw" + snakemake.wildcards.read_pair_tag + ".fastq.gz"
+
+if snakemake.wildcards.read_pair_tag == "SE":
+    input_fastq_read_pair_tag = ""
+else:
+    input_fastq_read_pair_tag = "_" + snakemake.wildcards.read_pair_tag
+
+raw_tag_input_fastq = dirname(snakemake.input.raw_fastq) + "/" + snakemake.wildcards.sample + "_raw" + input_fastq_read_pair_tag + ".fastq.gz"
 
 command = "mv " + snakemake.input.raw_fastq + " " + raw_tag_input_fastq
 f = open(log_filename, 'at')
@@ -49,12 +55,8 @@ f.write("## COMMAND: "+command+"\n")
 f.close()
 shell(command)
 
-if snakemake.wildcards.read_pair_tag == "":
-    zip_out_basename = "SE_fastqc.zip"
-else:
-    zip_out_basename = snakemake.wildcards.read_pair_tag.replace("_","") + "_fastqc.zip"
 
-command = "mv " + dirname(snakemake.output.html) + "/" + basename(raw_tag_input_fastq).replace(".fastq.gz","_fastqc.zip") + " " + dirname(snakemake.output.html) + "/" + zip_out_basename
+command = "mv " + dirname(snakemake.output.zip) + "/" + basename(raw_tag_input_fastq).replace(".fastq.gz","_fastqc.zip") + " " + snakemake.output.zip
 f = open(log_filename, 'at')
 f.write("## COMMAND: "+command+"\n")
 f.close()

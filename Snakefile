@@ -35,13 +35,13 @@ def fetch_data(file_path):
 sample_tab = pd.DataFrame.from_dict(config["samples"],orient="index")
 
 if config["lib_reverse_read_length"] == 0:
-    read_pair_tags = [""]
+    read_pair_tags = ["SE"]
 else:
-    read_pair_tags = ["_R1","_R2"]
+    read_pair_tags = ["R1","R2"]
 
 wildcard_constraints:
     sample = "|".join(sample_tab.sample_name),
-    read_pair_tag = "(_R.)?"
+    read_pair_tag = "R1|R2|SE"
 
 ##### Target rules #####
 
