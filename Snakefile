@@ -4,9 +4,11 @@ import boto3
 from snakemake.utils import min_version
 from snakemake.remote.S3 import RemoteProvider as S3RemoteProvider
 
-configfile: "configfile.json"
-
 min_version("5.18.0")
+
+configfile: "configfile.json" ### kubernetes
+#configfile: "config.json" ### local
+
 
 AWS_ID="acgt"
 AWS_KEY="P84RsiL5TmHu0Ijd"
@@ -24,14 +26,8 @@ def fetch_data(file_path):
             return S3.remote(S3_BUCKET + path + file_path[0])
         else:
             if isinstance(file_path, str):
-                print("########################## if ")
-                o = S3_BUCKET + path + file_path
-                print(o)
                 return S3.remote(S3_BUCKET + path + file_path)
             else:
-                print("########################## else")
-                o = [S3_BUCKET + path + x for x in file_path]
-                print(o)
                 return S3.remote(S3_BUCKET + path + x for x in file_path)
     else:
         if isinstance(file_path, list) and len(file_path) == 1:
