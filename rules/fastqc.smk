@@ -13,7 +13,7 @@ def raw_fastq_qc_input(wildcards):
     else:
         input_fastq_read_pair_tag = "_" + wildcards.read_pair_tag
 
-    return('raw_fastq/{wildcards.sample}{input_fastq_read_pair_tag}.fastq.gz')
+    return(f'raw_fastq/{wildcards.sample}{input_fastq_read_pair_tag}.fastq.gz')
 
 
 rule raw_fastq_qc:
