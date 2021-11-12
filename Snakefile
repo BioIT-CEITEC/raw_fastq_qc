@@ -10,7 +10,7 @@ sample_tab = pd.DataFrame.from_dict(config["samples"],orient="index")
 if config["lib_reverse_read_length"] == 0:
     read_pair_tags = [""]
 else:
-    read_pair_tags = ["_R1","_R2"]
+    read_pair_tags = ["R1","R2"]
 
 wildcard_constraints:
     sample = "|".join(sample_tab.sample_name),
