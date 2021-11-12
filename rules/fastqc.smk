@@ -24,3 +24,4 @@ rule raw_fastq_qc:
             # lib_name = config["library_name"]
     threads:  1
     conda:  "../wrappers/raw_fastq_qc/env.yaml"
+    script: "../wrappers/raw_fastq_qc/script.py"
