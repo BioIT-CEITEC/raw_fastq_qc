@@ -1,6 +1,4 @@
 import pandas as pd
-import json
-import boto3
 from snakemake.utils import min_version
 from snakemake.remote.S3 import RemoteProvider as S3RemoteProvider
 
@@ -16,9 +14,6 @@ S3_BUCKET = "acgt/"
 path = "sequia/210923__raw_fastq_qc__MOII_e91_krve__960/"
 
 S3 = S3RemoteProvider(host="https://storage-elixir1.cerit-sc.cz",access_key_id=AWS_ID, secret_access_key=AWS_KEY)
-# client = boto3.client('s3', aws_access_key_id=AWS_ID, aws_secret_access_key=AWS_KEY, region_name="US", endpoint_url="https://storage-elixir1.cerit-sc.cz")
-
-
 
 def fetch_data(file_path):
     if config["computing_type"] == "kubernetes":
@@ -34,8 +29,6 @@ def fetch_data(file_path):
             return file_path[0]
         else:
             return file_path
-
-
 
 
 ##### Config processing #####
@@ -54,7 +47,6 @@ wildcard_constraints:
 ##### Target rules #####
 
 rule all:
-   #input: S3.remote("acgt/sequia/210923__raw_fastq_qc__MOII_e91_krve__960/qc_reports/raw_fastq_multiqc.html")
    input: fetch_data("qc_reports/raw_fastq_multiqc.html")
 
 ##### Modules #####
