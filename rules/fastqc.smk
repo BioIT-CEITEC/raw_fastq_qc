@@ -25,3 +25,5 @@ rule raw_fastq_qc:
     threads:  1
     conda:  "../wrappers/raw_fastq_qc/env.yaml"
     script: "../wrappers/raw_fastq_qc/script.py"
+
+
