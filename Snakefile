@@ -7,8 +7,8 @@ min_version("5.18.0")
 
 sample_tab = pd.DataFrame.from_dict(config["samples"],orient="index")
 
-if config["lib_reverse_read_length"] == 0:
-    read_pair_tags = [""]
+if not config["is_paired"]:
+    read_pair_tags = ["SE"]
 else:
     read_pair_tags = ["R1","R2"]
 
