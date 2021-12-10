@@ -23,13 +23,7 @@ f.write("## COMMAND: "+command+"\n")
 f.close()
 shell(command)
 
-
-if snakemake.wildcards.read_pair_tag == "SE":
-    input_fastq_read_pair_tag = ""
-else:
-    input_fastq_read_pair_tag = "_" + snakemake.wildcards.read_pair_tag
-
-raw_tag_input_fastq = dirname(snakemake.input.raw_fastq) + "/" + snakemake.wildcards.sample + "_raw" + input_fastq_read_pair_tag + ".fastq.gz"
+raw_tag_input_fastq = dirname(snakemake.input.raw_fastq) + "/" + snakemake.wildcards.sample + "_raw" + snakemake.wildcards.read_pair_tag + ".fastq.gz"
 
 command = "mv " + snakemake.input.raw_fastq + " " + raw_tag_input_fastq
 f = open(log_filename, 'at')
@@ -55,15 +49,13 @@ f.write("## COMMAND: "+command+"\n")
 f.close()
 shell(command)
 
+if snakemake.wildcards.read_pair_tag == "":
+    zip_out_basename = "SE_fastqc.zip"
+else:
+    zip_out_basename = snakemake.wildcards.read_pair_tag.replace("_","") + "_fastqc.zip"
 
-command = "mv " + dirname(snakemake.output.zip) + "/" + basename(raw_tag_input_fastq).replace(".fastq.gz","_fastqc.zip") + " " + snakemake.output.zip
+command = "mv " + dirname(snakemake.output.html) + "/" + basename(raw_tag_input_fastq).replace(".fastq.gz","_fastqc.zip") + " " + dirname(snakemake.output.html) + "/" + zip_out_basename
 f = open(log_filename, 'at')
 f.write("## COMMAND: "+command+"\n")
 f.close()
 shell(command)
-
-# command = ' sed -r -i "s:<h2>[ ]*Summary[ ]*<\/h2><ul>:&<li><b>Return to <a href=\'../'+snakemake.params.lib_name+'.final_report.html\'>start page<\/a><\/b><\/li>:" '+snakemake.output.html
-# f = open(log_filename, 'at')
-# f.write("## COMMAND: "+command+"\n")
-# f.close()
-# shell(command)

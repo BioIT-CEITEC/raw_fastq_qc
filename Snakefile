@@ -4,9 +4,7 @@ from snakemake.remote.S3 import RemoteProvider as S3RemoteProvider
 
 min_version("5.18.0")
 
-configfile: "configfile.json" ### kubernetes
-#configfile: "config.json" ### local
-
+#configfile: "configfile.json" ### kubernetes
 
 AWS_ID="acgt"
 AWS_KEY="P84RsiL5TmHu0Ijd"
@@ -30,12 +28,11 @@ def fetch_data(file_path):
         else:
             return file_path
 
-
 ##### Config processing #####
 
 sample_tab = pd.DataFrame.from_dict(config["samples"],orient="index")
 
-if config["lib_reverse_read_length"] == 0:
+if not config["is_paired"]:
     read_pair_tags = ["SE"]
 else:
     read_pair_tags = ["R1","R2"]
