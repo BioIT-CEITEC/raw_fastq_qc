@@ -3,7 +3,7 @@
 rule merge_adaptors:
     input:  fastq = set(expand("raw_fastq_minion/{sample}_{pair}.minion.compare", sample = sample_tab.sample_name, pair = read_pair_tags),
     output: info = "raw_fastq_minion/adaptors.txt",
-            seqs = "raw_fastq_minion/adaptors_seqs.txt",
+            sequences = "raw_fastq_minion/adaptors_seqs.txt",
             tab  = "raw_fastq_minion/adaptors_mqc.tsv",
     log:    "logs/merge_adaptors.log",
     params: pattern = str("|"*int(config["min_adapter_matches"])),
@@ -14,7 +14,7 @@ rule merge_adaptors:
         echo -e "##" >> {log} 2>&1
         echo -e '## CONDA:' >> {log} 2>&1
         conda list >> {log} 2>&1
-        touch {output.info} {output.seqs} {output.tab} >> {log} 2>&1
+        touch {output.info} {output.sequences} {output.tab} >> {log} 2>&1
         PAT="{params.pattern}"
         for i in {input}
         do
@@ -24,16 +24,16 @@ rule merge_adaptors:
         	echo "-----------" >> {output.info} 2>> {log}
         	SEQ=$(grep -A1 "$PAT" $i | sed 's/^ //g' | awk '{{print $1}}' | sed "/$PAT/d" || echo -n "")
         	if [ $(echo -n "$SEQ"|wc -l) -gt 0 ] || [ -n "$SEQ" ]; then
-        	    echo -e ">$(basename $i .minion.compare)\\n$SEQ" >> {output.seqs} 2>> {log}
+        	    echo -e ">$(basename $i .minion.compare)\\n$SEQ" >> {output.sequences} 2>> {log}
         	fi
         done
-        if [ $(wc -l {output.seqs}) -gt 0 ]; then
+        if [ $(wc -l {output.sequences}) -gt 0 ]; then
             echo -e 'Reshapping found adaptors into table for multiqc' >> {log} 2>&1
             echo -e '# id: "minion_adapters"' > {output.tab} 2>> {log}
             echo -e '# section_name: "Minion"' >> {output.tab} 2>> {log}
             echo -e '# format: "tsv"' >> {output.tab} 2>> {log}
             echo -e '# plot_type: "table"' >> {output.tab} 2>> {log}
-            cat {output.seqs} | awk '{{if($0 ~ /^>/){{sample=substr($1, 2)}}; if($0 ~ /^[ACGTacgt]/){{print sample,$1}} }}' OFS='\\t' | Rscript -e 'tab=data.table::fread("cat /dev/stdin", sep="\\\\t", header=F);data.table::setnames(tab,"V1","sample");data.table::fwrite(data.table::dcast(tab, sample~V2, fill=0), "{output.tab}", append=T, sep="\\t", col.names=T, row.names=F, quote=F)' >> {log} 2>&1
+            cat {output.sequences} | awk '{{if($0 ~ /^>/){{sample=substr($1, 2)}}; if($0 ~ /^[ACGTacgt]/){{print sample,$1}} }}' OFS='\\t' | Rscript -e 'tab=data.table::fread("cat /dev/stdin", sep="\\\\t", header=F);data.table::setnames(tab,"V1","sample");data.table::fwrite(data.table::dcast(tab, sample~V2, fill=0), "{output.tab}", append=T, sep="\\t", col.names=T, row.names=F, quote=F)' >> {log} 2>&1
         fi
     """
     
