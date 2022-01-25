@@ -6,8 +6,8 @@ rule merge_adaptors:
             seqs = "raw_fastq_minion/adaptors_seqs.txt",
             tab  = "raw_fastq_minion/adaptors_mqc.tsv",
     log:    "logs/merge_adaptors.log",
-    params: pattern = str("|"*int(config["min_adapter_matches"]))
-    conda: "../wrappers/merge_adaptors/env.yaml"
+    params: pattern = str("|"*int(config["min_adapter_matches"])),
+    conda: "../wrappers/merge_adaptors/env.yaml",
     shell: """
         echo -e '##' >> {log} 2>&1
         echo -e '## RULE: merge_adaptors' >> {log} 2>&1
@@ -48,7 +48,7 @@ def check_adaptors_input(wildcards):
 rule check_adaptors:
     input:  fastq = check_adaptors_input
     output: comp = "raw_fastq_minion/{sample}_{read_pair_tag}.minion.compare",
-    log:    "logs/{sample}/check_adaptors_{read_pair_tag}.log"
+    log:    "logs/{sample}/check_adaptors_{read_pair_tag}.log",
     params: fasta = "raw_fastq_minion/{sample}_{read_pair_tag}.minion.fa",
             adaptors = GLOBAL_REF_PATH + "/general/adapters_merge.txt"
     conda:  "../wrappers/check_adaptors/env.yaml"
