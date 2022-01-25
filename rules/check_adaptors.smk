@@ -1,10 +1,12 @@
 ## Check adaptors in sample reads
 
 rule merge_adaptors:
-    input:  fastq = set(expand("raw_fastq_minion/{sample}_{pair}.minion.compare", sample = sample_tab.sample_name, pair = read_pair_tags),
+    input:  fastq = expand("raw_fastq_minion/{sample}_{pair}.minion.compare", sample = sample_tab.sample_name, pair = read_pair_tags),
     output: tab  = "raw_fastq_minion/adaptors_mqc.tsv",
     log:    "logs/merge_adaptors.log",
-    params: pattern=str("|"*int(config["min_adapter_matches"])),info="raw_fastq_minion/adaptors.txt",sequences="raw_fastq_minion/adaptors_seqs.txt",
+    params: pattern=str("|"*int(config["min_adapter_matches"])),
+            info="raw_fastq_minion/adaptors.txt",
+            sequences="raw_fastq_minion/adaptors_seqs.txt",
     conda: "../wrappers/merge_adaptors/env.yaml",
     shell: """
         echo -e '##' >> {log} 2>&1
