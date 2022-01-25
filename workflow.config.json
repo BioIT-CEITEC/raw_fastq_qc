@@ -7,7 +7,8 @@
     "inputs":"raw_fastq/{sample}*fastq.gz",
     "outputs":[
       "qc_reports/raw_fastq_multiqc.html",
-      "qc_reports/{sample}/raw_fastqc/*"
+      "qc_reports/{sample}/raw_fastqc/*",
+      "raw_fastq_minion/*"
     ],
     "report_index": "qc_reports/raw_fastq_multiqc.html",
     "reports":[
@@ -21,5 +22,18 @@
   "requested_params": [
     "is_paired"
   ],
-  "gui_params" : {}
+  "gui_params" : {
+    "detailed": {
+      "check_adaptors": {
+        "label": "Check adaptors by Minion",
+        "type": "bool",
+        "default": false
+      },
+      "min_adapter_matches": {
+        "label": "Min length of adaptor match (Minion)",
+        "type": "int",
+        "default": 12
+      }
+    }
+  }
 }

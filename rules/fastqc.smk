@@ -1,7 +1,14 @@
 ## ANNOTATION of VARIANTS in SAMPLES
+#
+def merge_fastq_qc_input(wcs):
+    inputs = {'html': expand("qc_reports/{sample}/raw_fastqc/{read_pair_tag}_fastqc.html",sample = sample_tab.sample_name,read_pair_tag = read_pair_tags)}
+    if config['check_adaptors']:
+        inputs['minion'] = "raw_fastq_minion/adaptors_mqc.tsv"
+    return inputs
 
 rule merge_fastq_qc:
-   input:  html = expand("qc_reports/{sample}/raw_fastqc/{read_pair_tag}_fastqc.html",sample = sample_tab.sample_name,read_pair_tag = read_pair_tags)
+    input:  unpack(merge_fastq_qc_input)
+   # input:  html = expand("qc_reports/{sample}/raw_fastqc/{read_pair_tag}_fastqc.html",sample = sample_tab.sample_name,read_pair_tag = read_pair_tags)
    output: html = "qc_reports/raw_fastq_multiqc.html"
    log:    "logs/merge_fastq_qc.log"
    conda:  "../wrappers/merge_fastq_qc/env.yaml"
@@ -12,8 +19,7 @@ def raw_fastq_qc_input(wildcards):
         input_fastq_read_pair_tag = ""
     else:
         input_fastq_read_pair_tag = "_" + wildcards.read_pair_tag
-
-    return(f'raw_fastq/{wildcards.sample}{input_fastq_read_pair_tag}.fastq.gz')
+    return f'raw_fastq/{wildcards.sample}{input_fastq_read_pair_tag}.fastq.gz'
 
 
 rule raw_fastq_qc:
