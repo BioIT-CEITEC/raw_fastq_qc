@@ -31,4 +31,4 @@ rule all:
 ##### Modules #####
 
 include: "rules/fastqc.smk"
-include: "rules/check_adaptors.smk"
+# include: "rules/check_adaptors.smk"
