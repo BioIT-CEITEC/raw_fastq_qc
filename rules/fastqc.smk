@@ -8,11 +8,11 @@ def merge_fastq_qc_input(wcs):
 
 rule merge_fastq_qc:
     input:  unpack(merge_fastq_qc_input)
-   # input:  html = expand("qc_reports/{sample}/raw_fastqc/{read_pair_tag}_fastqc.html",sample = sample_tab.sample_name,read_pair_tag = read_pair_tags)
-   output: html = "qc_reports/raw_fastq_multiqc.html"
-   log:    "logs/merge_fastq_qc.log"
-   conda:  "../wrappers/merge_fastq_qc/env.yaml"
-   script: "../wrappers/merge_fastq_qc/script.py"
+    # input:  html = expand("qc_reports/{sample}/raw_fastqc/{read_pair_tag}_fastqc.html",sample = sample_tab.sample_name,read_pair_tag = read_pair_tags)
+    output: html = "qc_reports/raw_fastq_multiqc.html"
+    log:    "logs/merge_fastq_qc.log"
+    conda:  "../wrappers/merge_fastq_qc/env.yaml"
+    script: "../wrappers/merge_fastq_qc/script.py"
 
 def raw_fastq_qc_input(wildcards):
     if wildcards.read_pair_tag == "SE":

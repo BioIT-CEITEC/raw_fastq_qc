@@ -13,7 +13,7 @@ if not config["is_paired"]:
     read_pair_tags = ["SE"]
 else:
     read_pair_tags = ["R1","R2"]
-    
+
 if not 'check_adaptors' in config:
     config['check_adaptors'] = False
 if not 'min_adapter_matches' in config:
@@ -26,7 +26,7 @@ wildcard_constraints:
 ##### Target rules #####
 
 rule all:
-   input: "qc_reports/raw_fastq_multiqc.html"
+    input: "qc_reports/raw_fastq_multiqc.html"
 
 ##### Modules #####
 
