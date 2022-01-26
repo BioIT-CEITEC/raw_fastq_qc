@@ -1,12 +1,12 @@
 ## Check adaptors in sample reads
 
 rule merge_adaptors:
-    input:  fastq = expand("raw_fastq_minion/{sample}_{pair}.minion.compare", sample = sample_tab.sample_name, pair = read_pair_tags),
-    output: tab  = "raw_fastq_minion/adaptors_mqc.tsv",
+    input:  fastq = expand("qc_reports/{sample}/raw_fastq_minion/{sample}_{pair}.minion.compare", sample = sample_tab.sample_name, pair = read_pair_tags),
+    output: tab  = "qc_reports/raw_fastq_minion_adaptors_mqc.tsv",
     log:    "logs/merge_adaptors.log",
     params: pattern=str("|"*int(config["min_adapter_matches"])),
-            info="raw_fastq_minion/adaptors.txt",
-            sequences="raw_fastq_minion/adaptors_seqs.txt",
+            info="qc_reports/raw_fastq_minion_adaptors.txt",
+            sequences="qc_reports/raw_fastq_minion_adaptors.txt",
     conda: "../wrappers/merge_adaptors/env.yaml",
     shell: """
         echo -e '##' >> {log} 2>&1
@@ -43,13 +43,13 @@ def check_adaptors_input(wildcards):
         input_fastq_read_pair_tag = ""
     else:
         input_fastq_read_pair_tag = "_" + wildcards.read_pair_tag
-    return(f'raw_fastq/{wildcards.sample}{input_fastq_read_pair_tag}.fastq.gz')
+    return f'raw_fastq/{wildcards.sample}{input_fastq_read_pair_tag}.fastq.gz'
     
 rule check_adaptors:
     input:  fastq = check_adaptors_input
-    output: comp = "raw_fastq_minion/{sample}_{read_pair_tag}.minion.compare",
+    output: comp = "qc_reports/{sample}/raw_fastq_minion/{sample}_{read_pair_tag}.minion.compare",
     log:    "logs/{sample}/check_adaptors_{read_pair_tag}.log",
-    params: fasta = "raw_fastq_minion/{sample}_{read_pair_tag}.minion.fa",
+    params: fasta = "qc_reports/{sample}/raw_fastq_minion/{sample}_{read_pair_tag}.minion.fa",
             adaptors = GLOBAL_REF_PATH + "/general/adapters_merge.txt"
     conda:  "../wrappers/check_adaptors/env.yaml"
     script: "../wrappers/check_adaptors/script.py"
