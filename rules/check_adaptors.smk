@@ -34,7 +34,7 @@ rule merge_adaptors:
             echo -e '# section_name: "Minion"' >> {output.tab} 2>> {log}
             echo -e '# format: "tsv"' >> {output.tab} 2>> {log}
             echo -e '# plot_type: "table"' >> {output.tab} 2>> {log}
-            cat {params.sequences} | awk '{{if($0 ~ /^>/){{sample=substr($1, 2)}}; if($0 ~ /^[ACGTacgt]/){{print sample,$1}} }}' OFS='\\t' | Rscript -e 'tab=data.table::fread("cat /dev/stdin", sep="\\\\t", header=F);data.table::setnames(tab,"V1","sample");data.table::fwrite(data.table::dcast(tab, sample~V2, fill=0), "{output.tab}", append=T, sep="\\t", col.names=T, row.names=F, quote=F)' >> {log} 2>&1
+            cat {params.sequences} | awk '{{if($0 ~ /^>/){{sample=substr($1, 2)}}; if($0 ~ /^[ACGTacgt]/){{print sample,$1}} }}' OFS='\\t' | Rscript -e 'tab=data.table::fread("cat /dev/stdin", sep="\\\\t", header=F);data.table::setnames(tab,"V1","sample");data.table::fwrite(data.table::dcast(tab, sample~V2, fill=0), "{output.tab}", append=T, sep="\\\\t", col.names=T, row.names=F, quote=F)' >> {log} 2>&1
         fi
     """
     
