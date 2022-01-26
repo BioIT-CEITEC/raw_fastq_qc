@@ -28,7 +28,7 @@ rule merge_adaptors:
         	    echo -e ">$(basename $i .minion.compare)\\n$SEQ" >> {params.sequences} 2>> {log}
         	fi
         done
-        if [ $(wc -l {params.sequences}) -gt 0 ]; then
+        if [ -s {params.sequences} ]; then
             echo -e 'Reshapping found adaptors into table for multiqc' >> {log} 2>&1
             echo -e '# id: "minion_adapters"' > {output.tab} 2>> {log}
             echo -e '# section_name: "Minion"' >> {output.tab} 2>> {log}
