@@ -6,19 +6,20 @@ rule merge_adaptors:
     log:    "logs/merge_adaptors.log",
     params: pattern=str("|"*int(config["min_adapter_matches"])),
             info="qc_reports/raw_fastq_minion_adaptors.txt",
-            sequences="qc_reports/raw_fastq_minion_adaptors.txt",
+            sequences="qc_reports/raw_fastq_minion_adaptors.fa",
     conda: "../wrappers/merge_adaptors/env.yaml",
     shell: """
         echo -e '##' >> {log} 2>&1
         echo -e '## RULE: merge_adaptors' >> {log} 2>&1
-        echo -e "##" >> {log} 2>&1
+        echo -e '##' >> {log} 2>&1
         echo -e '## CONDA:' >> {log} 2>&1
         conda list >> {log} 2>&1
         touch {params.info} {params.sequences} {output.tab} >> {log} 2>&1
         PAT="{params.pattern}"
-        for i in {input}
+        echo -e "Looking for pattern: ${PAT}" >> {params.info} 2>&1
+        for i in {input.fastq}
         do
-        	echo -e "Processing: $i" | tee {params.info} >> {log} 2>&1
+        	echo -e "Processing: $i" | tee -a {params.info} >> {log} 2>&1
         	INFO=$(grep -B1 -A1 "$PAT" $i | sed "s/^ //g" || echo "No adapter!")
         	echo "$INFO" >> {params.info} 2>> {log}
         	echo "-----------" >> {params.info} 2>> {log}
