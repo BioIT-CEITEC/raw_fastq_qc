@@ -14,6 +14,7 @@ rule merge_adaptors:
         echo -e '##' >> {log} 2>&1
         echo -e '## CONDA:' >> {log} 2>&1
         conda list >> {log} 2>&1
+        rm -f {params.info} {params.sequences} {output.tab} >> {log} 2>&1
         touch {params.info} {params.sequences} {output.tab} >> {log} 2>&1
         PAT="{params.pattern}"
         echo -e "Looking for pattern: $PAT" >> {params.info} 2>&1
