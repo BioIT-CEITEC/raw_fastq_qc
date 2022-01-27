@@ -6,8 +6,7 @@
     "type":"raw_fastq_qc",
     "inputs":"raw_fastq/{sample}*fastq.gz",
     "outputs":[
-      "qc_reports/raw_fastq_multiqc.html",
-      "qc_reports/{sample}/raw_fastqc/*"
+      "qc_reports/*"
     ],
     "report_index": "qc_reports/raw_fastq_multiqc.html",
     "reports":[
