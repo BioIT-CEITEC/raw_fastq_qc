@@ -31,11 +31,6 @@
         "label": "Min length of adaptor match (Minion)",
         "type": "int",
         "default": 12
-      },
-      "test_papa": {
-        "label": "HHHHHAHAHAHAHAHA",
-        "type": "bool",
-        "default": true
       }
     }
   }
