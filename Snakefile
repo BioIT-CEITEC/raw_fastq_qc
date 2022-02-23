@@ -1,10 +1,6 @@
 from snakemake.utils import min_version
-#from snakemake.workflow import gitlab
-from snakemake.sourcecache import gitlab
 
-
-
-min_version("6.0")
+min_version("6.15")
 
 module bioroots_utilities:
     snakefile:
