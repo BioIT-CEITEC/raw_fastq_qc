@@ -1,4 +1,5 @@
 from snakemake.utils import min_version
+from snakemake.workflow import gitlab
 
 min_version("6.0")
 
