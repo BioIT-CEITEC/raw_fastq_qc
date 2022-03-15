@@ -45,10 +45,14 @@ def check_adaptors_input(wildcards):
         input_fastq_read_pair_tag = ""
     else:
         input_fastq_read_pair_tag = "_" + wildcards.read_pair_tag
-    return f'raw_fastq/{wildcards.sample}{input_fastq_read_pair_tag}.fastq.gz'
+    inputs = {
+        'fastq' : f'raw_fastq/{wildcards.sample}{input_fastq_read_pair_tag}.fastq.gz',
+        'fastqc': f'qc_reports/{wildcards.sample}/raw_fastqc/{wildcards.read_pair_tag}_fastqc.html'
+    }
+    return inputs
     
 rule check_adaptors:
-    input:  fastq = check_adaptors_input
+    input:  unpack(check_adaptors_input)
     output: comp = "qc_reports/{sample}/raw_fastq_minion/{sample}_{read_pair_tag}.minion.compare",
     log:    "logs/{sample}/check_adaptors_{read_pair_tag}.log",
     params: fasta = "qc_reports/{sample}/raw_fastq_minion/{sample}_{read_pair_tag}.minion.fa",
