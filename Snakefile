@@ -2,6 +2,7 @@ import pandas as pd
 from snakemake.utils import min_version
 
 min_version("5.18.0")
+configfile: "config.json"
 
 GLOBAL_REF_PATH = "/mnt/references"
 
