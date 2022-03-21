@@ -14,8 +14,8 @@ rule filesender:
             username = "04e31f55649620f91f9225e2ebdc6941b2e1286e@einfra.cesnet.cz",
             apikey = "f912de100f733dac7572a4e392b8f0112ae1b332aca40146732f827baaf532fd"
     conda:  "../wrappers/filesender/env.yaml"
-    #script: "../wrappers/filesender/script.py"
-    shell: "python3 filesender.py -u {params.username} -a {params.apikey} -r {params.recipient} {output.zip}"
+    script: "../wrappers/filesender/script.py"
+    #shell: "python3 filesender.py -u {params.username} -a {params.apikey} -r {params.recipient} {output.zip}"
 
 
 def merge_fastq_qc_input(wcs):

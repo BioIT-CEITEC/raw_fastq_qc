@@ -17,6 +17,12 @@ f = open(log_filename, 'at')
 f.write("## CONDA: "+version+"\n")
 f.close()
 
+command = "zip -r " + snakemake.output.zip + " " + snakemake.input.raw_fastq + " " + snakemake.input.html + " >> " +log_filename+" 2>&1"
+f = open(log_filename, 'at')
+f.write("## COMMAND: "+command+"\n")
+f.close()
+shell(command)
+
 command = "python3 filesender.py -u " + snakemake.params.username + " -a " + snakemake.params.apikey + " -r " + snakemake.params.recipient + " " + snakemake.output.zip + " >> "+log_filename+" 2>&1"
 f = open(log_filename, 'at')
 f.write("## COMMAND: "+command+"\n")
