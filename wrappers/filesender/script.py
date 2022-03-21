@@ -17,7 +17,7 @@ f = open(log_filename, 'at')
 f.write("## CONDA: "+version+"\n")
 f.close()
 
-command = "zip -r " + snakemake.output.zip + " " + snakemake.input.raw_fastq + " " + snakemake.input.html + " >> " +log_filename+" 2>&1"
+command = "zip -r " + snakemake.output.zip + " " + str(snakemake.input.raw_fastq) + " " + str(snakemake.input.html) + " >> " +log_filename+" 2>&1"
 f = open(log_filename, 'at')
 f.write("## COMMAND: "+command+"\n")
 f.close()
