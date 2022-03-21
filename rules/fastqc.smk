@@ -4,7 +4,7 @@
 
 
 rule filesender:
-    input:  raw_fastq = expand("raw_fastq/{sample}{input_fastq_read_pair_tag}.fastq.gz",sample = sample_tab.sample_name,read_pair_tag = read_pair_tags),
+    input:  raw_fastq = expand("raw_fastq/{sample}{read_pair_tag}.fastq.gz",sample = sample_tab.sample_name,read_pair_tag = read_pair_tags),
             html = "qc_reports/raw_fastq_multiqc.html",
     output: zip = "qc_reports/raw_fastq_qc.zip"
     #log:    "logs/filesender.log"
