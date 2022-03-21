@@ -1,5 +1,23 @@
 ## ANNOTATION of VARIANTS in SAMPLES
 #
+
+
+
+rule filesender:
+    input:  raw_fastq = expand("raw_fastq/{sample}{input_fastq_read_pair_tag}.fastq.gz",sample = sample_tab.sample_name,read_pair_tag = read_pair_tags),
+            html = "qc_reports/raw_fastq_multiqc.html",
+    output: zip = "qc_reports/raw_fastq_qc.zip"
+    #log:    "logs/filesender.log"
+    params: recipient = "juraskovakaterina@seznam.cz",
+            # username = "ad4520e02b8d4ef9267f830ebb618bd67d1a504e@einfra.cesnet.cz",
+            # apikey = "36b8932ac7599cd3b3151fcf910e0181589c48e58b574275e7811d22e7cc03e6"
+            username = "04e31f55649620f91f9225e2ebdc6941b2e1286e@einfra.cesnet.cz",
+            apikey = "f912de100f733dac7572a4e392b8f0112ae1b332aca40146732f827baaf532fd"
+    conda:  "../wrappers/filesender/env.yaml"
+    #script: "../wrappers/filesender/script.py"
+    shell: "python3 filesender.py -u {params.username} -a {params.apikey} -r {params.recipient} {output.zip}"
+
+
 def merge_fastq_qc_input(wcs):
     inputs = {'html': expand("qc_reports/{sample}/raw_fastqc/{read_pair_tag}_fastqc.html",sample = sample_tab.sample_name,read_pair_tag = read_pair_tags)}
     if config['check_adaptors']:
