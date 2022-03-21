@@ -21,6 +21,10 @@ if not 'check_adaptors' in config:
 if not 'min_adapter_matches' in config:
     config['min_adapter_matches'] = 12
 
+
+if not 'filesender' in config:
+    config['filesender'] = True
+
 wildcard_constraints:
     sample = "|".join(sample_tab.sample_name),
     read_pair_tag = "R1|R2|SE"
