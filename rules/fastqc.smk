@@ -7,7 +7,7 @@ rule filesender:
     input:  raw_fastq = expand("raw_fastq/{sample}_{read_pair_tag}.fastq.gz",sample = sample_tab.sample_name,read_pair_tag = read_pair_tags),
             html = "qc_reports/raw_fastq_multiqc.html",
     output: zip = "qc_reports/raw_fastq_qc.zip"
-    #log:    "logs/filesender.log"
+    log:    "logs/filesender.log"
     params: recipient = "juraskovakaterina@seznam.cz",
             # username = "ad4520e02b8d4ef9267f830ebb618bd67d1a504e@einfra.cesnet.cz",
             # apikey = "36b8932ac7599cd3b3151fcf910e0181589c48e58b574275e7811d22e7cc03e6"
