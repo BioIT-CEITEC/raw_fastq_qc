@@ -73,8 +73,6 @@ apikey = None
 
 
 
-  
-
 
 #argv
 parser = argparse.ArgumentParser()
