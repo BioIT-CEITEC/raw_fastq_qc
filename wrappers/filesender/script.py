@@ -1,9 +1,8 @@
 ######################################
 # wrapper for rule: filesender
 ######################################
+import os
 import subprocess
-from os.path import dirname
-from os.path import basename
 from snakemake.shell import shell
 shell.executable("/bin/bash")
 log_filename = str(snakemake.log)
