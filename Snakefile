@@ -37,7 +37,7 @@ def all_input(wildcard):
         return "qc_reports/raw_fastq_multiqc.html"
 
 rule all:
-        input: unpack(all_input)
+        input: all_input
 
 # ##### Target rules #####
 #
