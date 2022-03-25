@@ -1,8 +1,8 @@
 {
   "workflow_description": {
-    "name":"raw_fastq_qcT",
+    "name":"raw_fastq_qc",
     "version": 1.0,
-    "label":"Raw fastq QC",
+    "label":"Raw fastq QCT",
     "type":"raw_fastq_qc",
     "inputs":"raw_fastq/{sample}*fastq.gz",
     "outputs":[
