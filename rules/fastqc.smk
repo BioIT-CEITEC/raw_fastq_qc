@@ -8,9 +8,8 @@ rule filesender:
             html = expand("qc_reports/{sample}",sample = sample_tab.sample_name)
     output: gz = "qc_reports/raw_fastq_qc.tar.gz"
     log:    "logs/filesender.log"
-    params: recipient = "juraskovakaterina@seznam.cz",
-            username = "04e31f55649620f91f9225e2ebdc6941b2e1286e@einfra.cesnet.cz",
-            apikey = "f912de100f733dac7572a4e392b8f0112ae1b332aca40146732f827baaf532fd"
+    params: recipient = config["filesender"],
+            credentials = GLOBAL_REF_PATH + "/reference_info/filesender_params.json"
     conda:  "../wrappers/filesender/env.yaml"
     script: "../wrappers/filesender/script.py"
     #shell: "python3 filesender.py -u {params.username} -a {params.apikey} -r {params.recipient} {output.zip}"
