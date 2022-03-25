@@ -1,6 +1,6 @@
 {
   "workflow_description": {
-    "name":"raw_fastq_qc",
+    "name":"raw_fastq_qcT",
     "version": 1.0,
     "label":"Raw fastq QC",
     "type":"raw_fastq_qc",
