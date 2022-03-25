@@ -9,7 +9,8 @@ rule filesender:
     output: gz = "qc_reports/raw_fastq_qc.tar.gz"
     log:    "logs/filesender.log"
     params: recipient = config["filesender"],
-            credentials = GLOBAL_REF_PATH + "/reference_info/filesender_params.json"
+            credentials = GLOBAL_REF_PATH + "/reference_info/filesender.json",
+            res_file = "qc_reports/"
     conda:  "../wrappers/filesender/env.yaml"
     script: "../wrappers/filesender/script.py"
     #shell: "python3 filesender.py -u {params.username} -a {params.apikey} -r {params.recipient} {output.zip}"
