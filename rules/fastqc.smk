@@ -5,12 +5,10 @@
 
 rule filesender:
     input:  raw_fastq = "raw_fastq/",
-            html = "qc_reports/",
+            html = expand("qc_reports/{sample}",sample = sample_tab.sample_name)
     output: gz = "qc_reports/raw_fastq_qc.tar.gz"
     log:    "logs/filesender.log"
     params: recipient = "juraskovakaterina@seznam.cz",
-            # username = "ad4520e02b8d4ef9267f830ebb618bd67d1a504e@einfra.cesnet.cz",
-            # apikey = "36b8932ac7599cd3b3151fcf910e0181589c48e58b574275e7811d22e7cc03e6"
             username = "04e31f55649620f91f9225e2ebdc6941b2e1286e@einfra.cesnet.cz",
             apikey = "f912de100f733dac7572a4e392b8f0112ae1b332aca40146732f827baaf532fd"
     conda:  "../wrappers/filesender/env.yaml"
