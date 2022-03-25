@@ -5,7 +5,7 @@
 
 rule filesender:
     input:  raw_fastq = "raw_fastq/",
-            html = expand("qc_reports/{sample}",sample = sample_tab.sample_name)
+            html = expand("qc_reports/{sample}/raw_fastqc/{read_pair_tag}_fastqc.html",sample = sample_tab.sample_name,read_pair_tag = read_pair_tags),
     output: gz = "qc_reports/raw_fastq_qc.tar.gz"
     log:    "logs/filesender.log"
     params: recipient = config["filesender"],

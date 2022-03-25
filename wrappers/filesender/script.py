@@ -25,10 +25,15 @@ if snakemake.params.config != "":
 
     username = filesender_credentials["username"]
     apikey = filesender_credentials["apikey"]
+    A = str(snakemake.input.html).replace("qc_reports/*/raw_fastqc/*_fastqc.html", "")
 
     f = open(log_filename, 'at')
-    f.write("####" +filesender_credentials+" "+username+" "+username+"\n")
+    f.write("####" +filesender_credentials+" "+username+" "+username+"\n"+A)
     f.close()
+
+
+
+
 
     command = "tar -czvf " + snakemake.output.gz + " " + snakemake.input.raw_fastq + " " + str(snakemake.input.html) + " >> " +log_filename+" 2>&1"
     f = open(log_filename, 'at')
