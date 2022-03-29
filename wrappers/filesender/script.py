@@ -33,7 +33,7 @@ if "@" in snakemake.params.recipient:
     f.write("## COMMAND: " + command + "\n")
     f.close()
     shell("python3 wrappers/filesender/filesender.py -u " + filesender_credentials["username"] + " -a " + filesender_credentials["apikey"] + " -r " + snakemake.params.recipient +\
-          " -s Raw fastq files: " + snakemake.params.subject + " -m " + snakemake.params.message + " " + snakemake.output.gz + " >> " + log_filename + " 2>&1")
+          " -s Raw fastq files: " + str(snakemake.params.subject) + " -m " + str(snakemake.params.message) + " " + snakemake.output.gz + " >> " + log_filename + " 2>&1")
 
 else:
     f = open(log_filename, 'at')

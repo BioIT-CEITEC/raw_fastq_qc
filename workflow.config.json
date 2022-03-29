@@ -54,7 +54,7 @@
       "message": {
         "label": "Message for recipient:",
         "type": "string",
-        "default": "Dear customer,\nwe are sending you the prepared fastq files from your sequencing. You have 10 days to download data.\nThank you for using our facility.\nBest regards, Core facility of Bioinformatics and Genomics team.",
+        "default": "Dear customer, we are sending you the prepared fastq files from your sequencing. You have 10 days to download data. Thank you for using our facility. Best regards, Core facility of Bioinformatics and Genomics team.",
         "conditions": {
           "relevance": {
             "operand": "equal",
