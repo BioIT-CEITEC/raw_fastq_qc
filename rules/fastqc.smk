@@ -15,9 +15,15 @@ rule filesender:
             res_file = "qc_reports/"
     conda:  "../wrappers/filesender/env.yaml"
     #script: "../wrappers/filesender/script.py"
-    shell:  "tar -czvf {output.gz} {input.raw_fastq} {params.res_file} >> {log} 2>&1"
-            "python3 filesender.py -r {params.recipient} -s Raw fastq files:{params.subject} -m {params.message} {output.gz} >> {log} 2>&1"
-
+    shell:  """
+            echo -e '##' >> {log} 2>&1
+            echo -e '## RULE: filesender' >> {log} 2>&1
+            echo -e '##' >> {log} 2>&1
+            echo -e '## CONDA:' >> {log} 2>&1
+            conda list >> {log} 2>&1
+            tar -czvf {output.gz} {input.raw_fastq} {params.res_file} >> {log} 2>&1
+            python3 filesender.py -r {params.recipient} -s Raw fastq files:{params.subject} -m {params.message} {output.gz} >> {log} 2>&1
+            """
 
 def merge_fastq_qc_input(wcs):
     inputs = {'html': expand("qc_reports/{sample}/raw_fastqc/{read_pair_tag}_fastqc.html",sample = sample_tab.sample_name,read_pair_tag = read_pair_tags)}
