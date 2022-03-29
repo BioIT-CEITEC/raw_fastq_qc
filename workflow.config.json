@@ -1,15 +1,15 @@
 {
   "workflow_description": {
-    "name":"raw_fastq_qc",
+    "name": "raw_fastq_qc",
     "version": 1.0,
-    "label":"Raw fastq QC",
-    "type":"raw_fastq_qc",
-    "inputs":"raw_fastq/{sample}*fastq.gz",
-    "outputs":[
+    "label": "Raw fastq QC",
+    "type": "raw_fastq_qc",
+    "inputs": "raw_fastq/{sample}*fastq.gz",
+    "outputs": [
       "qc_reports/*"
     ],
     "report_index": "qc_reports/raw_fastq_multiqc.html",
-    "reports":[
+    "reports": [
       "qc_reports/raw_fastq_multiqc.html"
     ]
   },
@@ -20,7 +20,7 @@
   "requested_params": [
     "is_paired"
   ],
-  "gui_params" : {
+  "gui_params": {
     "detailed": {
       "check_adaptors": {
         "label": "Check adaptors by Minion",
@@ -33,9 +33,23 @@
         "default": 12
       },
       "filesender": {
+        "label": "FileSender",
+        "type": "bool",
+        "default": true
+      },
+      "recipient": {
         "label": "Send results to:",
         "type": "string",
-        "default": ""
+        "default": "juraskovakaterina@seznam.cz",
+        "conditions": {
+          "relevance": {
+            "operand": "equal",
+            "negation": false,
+            "values": {
+              "filesender": true
+            }
+          }
+        }
       }
     }
   }

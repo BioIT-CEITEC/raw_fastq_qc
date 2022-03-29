@@ -40,3 +40,8 @@ else:
     f = open(log_filename, 'at')
     f.write("## Wrong email address.\n")
     f.close()
+
+    # titul: raw fastq files: <name>
+    # message: Dear customer,\
+    # we are sending you the prepared fastq files from your sequencing. You have 10 days to download data.\
+    # Thank you for using our facility. Best regards, Core facility of Bioinformatics and Genomics team.
