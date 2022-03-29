@@ -29,6 +29,7 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import argparse
+from snakemake.shell import shell
 try:
   import requests
   import time
@@ -52,6 +53,7 @@ except Exception as e:
   print('pip3 install requests urllib3 ')
   exit(1)
   
+shell.executable("/bin/bash")
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
@@ -60,18 +62,17 @@ base_url = 'https://filesender.cesnet.cz/rest.php'
 default_transfer_days_valid = 10
 username = None
 apikey = None
-# = expanduser("~")
+#homepath = expanduser("~")
 
-# config = configparser.ConfigParser()
+config = configparser.ConfigParser()
 #config.read(homepath + '/.filesender/filesender.py.ini')
-# if 'system' in config:
-#   base_url = config['system'].get('base_url', 'https://filesender.cesnet.cz/rest.php')
-#   default_transfer_days_valid = int(config['system'].get('default_transfer_days_valid', 10))
-# if 'user' in config:
-#   username = config['user'].get('username')
-#   apikey = config['user'].get('apikey')
-
-
+config.read(snakemake.params.credentials)
+if 'system' in config:
+  base_url = config['system'].get('base_url', 'https://filesender.cesnet.cz/rest.php')
+  default_transfer_days_valid = int(config['system'].get('default_transfer_days_valid', 10))
+if 'user' in config:
+  username = config['user'].get('username')
+  apikey = config['user'].get('apikey')
 
 
 #argv

@@ -9,11 +9,14 @@ rule filesender:
     output: gz = "qc_reports/raw_fastq_qc.tar.gz"
     log:    "logs/filesender.log"
     params: recipient = config["filesender"],
+            subject = config["entity_name"],
+            message = config["message"],
             credentials = GLOBAL_REF_PATH + "/reference_info/filesender_params.json",
             res_file = "qc_reports/"
     conda:  "../wrappers/filesender/env.yaml"
-    script: "../wrappers/filesender/script.py"
-    #shell: "python3 filesender.py -u {params.username} -a {params.apikey} -r {params.recipient} {output.zip}"
+    #script: "../wrappers/filesender/script.py"
+    shell:  "tar -czvf {output.gz} {input.raw_fastq} {params.res_file} >> {log} 2>&1"
+            "python3 filesender.py -r {params.recipient} -s Raw fastq files:{params.subject} -m {params.message} {output.gz} >> {log} 2>&1"
 
 
 def merge_fastq_qc_input(wcs):
