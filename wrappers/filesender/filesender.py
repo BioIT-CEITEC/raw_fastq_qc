@@ -60,7 +60,7 @@ base_url = 'https://filesender.cesnet.cz/rest.php'
 default_transfer_days_valid = 10
 username = None
 apikey = None
-#homepath = expanduser("~")
+# = expanduser("~")
 
 # config = configparser.ConfigParser()
 #config.read(homepath + '/.filesender/filesender.py.ini')
@@ -70,6 +70,9 @@ apikey = None
 # if 'user' in config:
 #   username = config['user'].get('username')
 #   apikey = config['user'].get('apikey')
+
+
+
 
 #argv
 parser = argparse.ArgumentParser()

@@ -12,7 +12,7 @@ rule filesender:
             res_file = "qc_reports/"
     conda:  "../wrappers/filesender/env.yaml"
     script: "../wrappers/filesender/script.py"
-
+#python3 wrappers/filesender/filesender.py -r {params.recipient} -s Raw fastq files:{params.subject} -m {params.message} {output.gz} >> {log} 2>&1
 
 def merge_fastq_qc_input(wcs):
     inputs = {'html': expand("qc_reports/{sample}/raw_fastqc/{read_pair_tag}_fastqc.html",sample = sample_tab.sample_name,read_pair_tag = read_pair_tags)}

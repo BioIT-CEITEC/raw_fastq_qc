@@ -27,7 +27,7 @@ wildcard_constraints:
 
 
 def all_input(wildcard):
-    if config["filesender"] != "":
+    if config["filesender"]:
         return ["qc_reports/raw_fastq_qc.tar.gz","qc_reports/raw_fastq_multiqc.html"]
     else:
         return "qc_reports/raw_fastq_multiqc.html"
