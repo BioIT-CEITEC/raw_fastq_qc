@@ -25,6 +25,7 @@ wildcard_constraints:
     sample = "|".join(sample_tab.sample_name),
     read_pair_tag = "R1|R2|SE"
 
+# ##### Target rules #####
 
 def all_input(wildcard):
     if config["filesender"]:
@@ -34,11 +35,6 @@ def all_input(wildcard):
 
 rule all:
         input: all_input
-
-# ##### Target rules #####
-#
-# rule all:
-#     input: "qc_reports/raw_fastq_qc.zip"
 
 ##### Modules #####
 

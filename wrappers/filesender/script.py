@@ -31,12 +31,11 @@ if "@" in snakemake.params.recipient:
     f.close()
     shell(command)
 
-    command = "python3 wrappers/filesender/filesender.py -m \"" + snakemake.params.message + "\" -s \"" + snakemake.params.subject + "\" -u " + username + " -a " + apikey + " -r " + snakemake.params.recipient + " " + snakemake.output.gz + " >> " + log_filename + " 2>&1"
-    #command_2 = "python3 wrappers/filesender/filesender.py -r " + snakemake.params.recipient + " -s Raw fastq files: " + snakemake.params.subject + " -m " + snakemake.params.message + " " + snakemake.output.gz + " >> " + log_filename + " 2>&1" #printing command without credentials
+    command = "python3 wrappers/filesender/filesender.py -m \"" + snakemake.params.message + "\" -s \"" + snakemake.params.subject + "\" -r " + snakemake.params.recipient + " " + snakemake.output.gz + " >> " + log_filename + " 2>&1" #printing command without credentials
     f = open(log_filename, 'at')
     f.write("## COMMAND: " + command + "\n")
     f.close()
-    shell(command)
+    shell("python3 wrappers/filesender/filesender.py -m \"" + snakemake.params.message + "\" -s \"" + snakemake.params.subject + "\" -u " + username + " -a " + apikey + " -r " + snakemake.params.recipient + " " + snakemake.output.gz + " >> " + log_filename + " 2>&1")
 
 else:
     f = open(log_filename, 'at')
