@@ -35,10 +35,10 @@
       "filesender": {
         "label": "FileSender",
         "type": "bool",
-        "default": true
+        "default": false
       },
       "recipient": {
-        "label": "Send results to:",
+        "label": "Send results to (comma separated list of emails):",
         "type": "string",
         "default": "juraskovakaterina@seznam.cz",
         "conditions": {
