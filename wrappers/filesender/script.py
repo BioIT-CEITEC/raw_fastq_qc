@@ -34,5 +34,3 @@ f = open(log_filename, 'at')
 f.write("## COMMAND: " + command + "\n")
 f.close()
 shell("python3 wrappers/filesender/filesender.py -m \"" + snakemake.params.message + "\" -s \"" + snakemake.params.subject + "\" -u " + username + " -a " + apikey + " -r " + snakemake.params.recipient + " " + snakemake.output.gz + " >> " + log_filename + " 2>&1")
-
-
