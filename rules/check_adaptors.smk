@@ -1,12 +1,12 @@
 ## Check adaptors in sample reads
 
 rule merge_adaptors:
-    input:  fastq = expand("qc_reports/{sample}/raw_fastq_minion/{sample}_{pair}.minion.compare", sample = sample_tab.sample_name, pair = read_pair_tags),
-    output: tab  = "qc_reports/raw_fastq_minion_adaptors_mqc.tsv",
-    log:    "logs/merge_adaptors.log",
+    input:  fastq = BR.remote(expand("qc_reports/{sample}/raw_fastq_minion/{sample}_{pair}.minion.compare", sample = sample_tab.sample_name, pair = read_pair_tags)),
+    output: tab  = BR.remote("qc_reports/raw_fastq_minion_adaptors_mqc.tsv"),
+    log:    BR.remote("logs/merge_adaptors.log"),
     params: pattern=str("|"*int(config["min_adapter_matches"])),
-            info="qc_reports/raw_fastq_minion_adaptors.txt",
-            sequences="qc_reports/raw_fastq_minion_adaptors.fa",
+            info=BR.remote("qc_reports/raw_fastq_minion_adaptors.txt"),
+            sequences=BR.remote("qc_reports/raw_fastq_minion_adaptors.fa"),
     conda: "../wrappers/merge_adaptors/env.yaml",
     shell: """
         echo -e '##' >> {log} 2>&1
@@ -46,16 +46,16 @@ def check_adaptors_input(wildcards):
     else:
         input_fastq_read_pair_tag = "_" + wildcards.read_pair_tag
     inputs = {
-        'fastq' : f'raw_fastq/{wildcards.sample}{input_fastq_read_pair_tag}.fastq.gz',
-        'fastqc': f'qc_reports/{wildcards.sample}/raw_fastqc/{wildcards.read_pair_tag}_fastqc.html'
+        'fastq' : BR.remote(f'raw_fastq/{wildcards.sample}{input_fastq_read_pair_tag}.fastq.gz'),
+        'fastqc': BR.remote(f'qc_reports/{wildcards.sample}/raw_fastqc/{wildcards.read_pair_tag}_fastqc.html')
     }
     return inputs
     
 rule check_adaptors:
     input:  unpack(check_adaptors_input)
-    output: comp = "qc_reports/{sample}/raw_fastq_minion/{sample}_{read_pair_tag}.minion.compare",
-    log:    "logs/{sample}/check_adaptors_{read_pair_tag}.log",
-    params: fasta = "qc_reports/{sample}/raw_fastq_minion/{sample}_{read_pair_tag}.minion.fa",
-            adaptors = GLOBAL_REF_PATH + "/general/adapters_merge.txt"
+    output: comp = BR.remote("qc_reports/{sample}/raw_fastq_minion/{sample}_{read_pair_tag}.minion.compare"),
+    log:    BR.remote("logs/{sample}/check_adaptors_{read_pair_tag}.log"),
+    params: fasta = BR.remote("qc_reports/{sample}/raw_fastq_minion/{sample}_{read_pair_tag}.minion.fa"),
+            adaptors = BR.remote(GLOBAL_REF_PATH + "/general/adapters_merge.txt")
     conda:  "../wrappers/check_adaptors/env.yaml"
     script: "../wrappers/check_adaptors/script.py"
