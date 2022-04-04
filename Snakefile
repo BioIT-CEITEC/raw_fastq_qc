@@ -1,33 +1,25 @@
+import pandas as pd
 from snakemake.utils import min_version
 
-min_version("7.2.1")
+min_version("5.18.0")
 
 configfile: "config.json"
 
-module BR:
-    snakefile: gitlab("bioroots/bioroots_utilities", path="bioroots_utilities.smk",branch="main")
-    config: config
-
-use rule * from BR as other_*
+GLOBAL_REF_PATH = config["globalResources"]
 
 ##### Config processing #####
 
-GLOBAL_REF_PATH = config["globalResources"]
-sample_tab = BR.load_sample()
-read_pair_tags = BR.set_read_pair_tags()[0]
+sample_tab = pd.DataFrame.from_dict(config["samples"],orient="index")
 
-if read_pair_tags == [""]:
-    read_pair_tags[0] = read_pair_tags[0].replace("","SE")
+if not config["is_paired"]:
+    read_pair_tags = ["SE"]
 else:
-    read_pair_tags[0] = read_pair_tags[0].replace("_","")
-    read_pair_tags[1] = read_pair_tags[1].replace("_","")
-
+    read_pair_tags = ["R1","R2"]
 
 if not 'check_adaptors' in config:
     config['check_adaptors'] = False
 if not 'min_adapter_matches' in config:
     config['min_adapter_matches'] = 12
-
 
 wildcard_constraints:
     sample = "|".join(sample_tab.sample_name),
@@ -37,9 +29,9 @@ wildcard_constraints:
 
 def all_input(wildcard):
     if config["filesender"]:
-        return BR.remote(["qc_reports/raw_fastq_qc.tar.gz","qc_reports/raw_fastq_multiqc.html"])
+        return ["qc_reports/raw_fastq_qc.tar.gz","qc_reports/raw_fastq_multiqc.html"]
     else:
-        return BR.remote("qc_reports/raw_fastq_multiqc.html")
+        return "qc_reports/raw_fastq_multiqc.html"
 
 rule all:
         input: all_input
