@@ -4,7 +4,9 @@ from snakemake.utils import min_version
 min_version("5.18.0")
 configfile: "config.json"
 
-GLOBAL_REF_PATH = "/mnt/references"
+configfile: "config.json"
+
+GLOBAL_REF_PATH = config["globalResources"]
 
 ##### Config processing #####
 
@@ -24,10 +26,16 @@ wildcard_constraints:
     sample = "|".join(sample_tab.sample_name),
     read_pair_tag = "R1|R2|SE"
 
-##### Target rules #####
+# ##### Target rules #####
+
+def all_input(wildcard):
+    if config["filesender"]:
+        return ["qc_reports/raw_fastq_qc.tar.gz","qc_reports/raw_fastq_multiqc.html"]
+    else:
+        return "qc_reports/raw_fastq_multiqc.html"
 
 rule all:
-    input: "qc_reports/raw_fastq_multiqc.html"
+        input: all_input
 
 ##### Modules #####
 
