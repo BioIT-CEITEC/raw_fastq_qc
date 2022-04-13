@@ -57,7 +57,7 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 #settings
 base_url = 'https://filesender.cesnet.cz/rest.php'
-default_transfer_days_valid = 30
+default_transfer_days_valid = 29
 username = None
 apikey = None
 # = expanduser("~")
