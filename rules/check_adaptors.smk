@@ -1,7 +1,7 @@
 ## Check adaptors in sample reads
 
 rule merge_adaptors:
-    input:  fastq = yexpand("qc_reports/{sample}/raw_fastq_minion/{sample}_{pair}.minion.compare", sample = sample_tab.sample_name, pair = read_pair_tags),
+    input:  fastq = expand("qc_reports/{sample}/raw_fastq_minion/{sample}_{pair}.minion.compare", sample = sample_tab.sample_name, pair = read_pair_tags),
     output: tab  = "qc_reports/raw_fastq_minion_adaptors_mqc.tsv",
     log:    "logs/merge_adaptors.log",
     params: pattern=str("|"*int(config["min_adapter_matches"])),
