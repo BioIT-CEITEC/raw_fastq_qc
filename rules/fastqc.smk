@@ -37,7 +37,7 @@ def raw_fastq_qc_input(wildcards):
 rule raw_fastq_qc:
     input:  raw_fastq = raw_fastq_qc_input
     output: html = "qc_reports/{sample}/raw_fastqc/{read_pair_tag}_fastqc.html"
-    log:    y"logs/{sample}/raw_fastqc_{read_pair_tag}.log"
+    log:    "logs/{sample}/raw_fastqc_{read_pair_tag}.log"
     params: extra = "--noextract --format fastq --nogroup",
     threads:  1
     conda:  "../wrappers/raw_fastq_qc/env.yaml"
