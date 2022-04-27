@@ -4,6 +4,8 @@ min_version("7.2.1")
 
 configfile: "config.json"
 
+config["computing_type"] = "kubernetes"
+
 module BR:
     snakefile: gitlab("bioroots/bioroots_utilities", path="bioroots_utilities.smk",branch="main")
     config: config
