@@ -14,7 +14,7 @@ rule filesender:
     script: "../wrappers/filesender/script.py"
 
 def merge_fastq_qc_input(wcs):
-    inputs = {'html': BR.remote(expand("qc_reports/{sample}/raw_fastqc/{read_pair_tag}_fastqc.html",sample = sample_tab.sample_name,read_pair_tag = read_pair_tags))}
+    inputs = {'html': BR.remote(expand("qc_reports/{sample}/raw_fastqc/{read_pair_tag}_fastqc.zip",sample = sample_tab.sample_name,read_pair_tag = read_pair_tags))}
     if config['check_adaptors']:
         inputs['minion'] = BR.remote("qc_reports/raw_fastq_minion_adaptors_mqc.tsv")
     return inputs
@@ -36,7 +36,8 @@ def raw_fastq_qc_input(wildcards):
 
 rule raw_fastq_qc:
     input:  raw_fastq = raw_fastq_qc_input
-    output: html = BR.remote("qc_reports/{sample}/raw_fastqc/{read_pair_tag}_fastqc.html")
+    output: html = BR.remote("qc_reports/{sample}/raw_fastqc/{read_pair_tag}_fastqc.html"),
+            zip = BR.remote("qc_reports/{sample}/raw_fastqc/{read_pair_tag}_fastqc.zip")
     log:    BR.remote("logs/{sample}/raw_fastqc_{read_pair_tag}.log")
     params: extra = "--noextract --format fastq --nogroup",
     threads:  1
