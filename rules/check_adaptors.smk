@@ -56,6 +56,6 @@ rule check_adaptors:
     output: comp = BR.remote("qc_reports/{sample}/raw_fastq_minion/{sample}_{read_pair_tag}.minion.compare"),
     log:    BR.remote("logs/{sample}/check_adaptors_{read_pair_tag}.log"),
     params: fasta = BR.remote("qc_reports/{sample}/raw_fastq_minion/{sample}_{read_pair_tag}.minion.fa"),
-            adaptors = BR.remote(GLOBAL_REF_PATH + "/general/adapters_merge.txt")
+            adaptors = BR.remote(GLOBAL_REF_PATH + "general/adapters_merge.txt")
     conda:  "../wrappers/check_adaptors/env.yaml"
     script: "../wrappers/check_adaptors/script.py"
