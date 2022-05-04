@@ -14,9 +14,9 @@ use rule * from BR as other_*
 
 ##### Config processing #####
 
-GLOBAL_REF_PATH = config["globalResources"] + "/"
+GLOBAL_REF_PATH = config["globalResources"]
 sample_tab = BR.load_sample()
-read_pair_tags = BR.set_read_pair_tags()[0]
+read_pair_tags = BR.set_read_pair_tags()
 
 if read_pair_tags == [""]:
     read_pair_tags[0] = read_pair_tags[0].replace("","SE")
