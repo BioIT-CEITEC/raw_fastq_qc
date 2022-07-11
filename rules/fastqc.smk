@@ -26,7 +26,6 @@ rule merge_fastq_qc:
     conda:  "../wrappers/merge_fastq_qc/env.yaml"
     script: "../wrappers/merge_fastq_qc/script.py"
 
-
 def raw_fastq_qc_input(wildcards):
     if wildcards.read_pair_tag == "SE":
         input_fastq_read_pair_tag = ""
@@ -42,3 +41,33 @@ rule raw_fastq_qc:
     threads:  1
     conda:  "../wrappers/raw_fastq_qc/env.yaml"
     script: "../wrappers/raw_fastq_qc/script.py"
+
+def biobloom_input(wildcards):
+    # if config["trim_adapters"] == True or config["trim_quality"] == True:
+    #     preprocessed = "cleaned_fastq"
+    # else:
+    #     preprocessed = "raw_fastq"
+    preprocessed = "raw_fastq"
+    input = {}
+    input['flagstats'] = "qc_reports/{sample}/qc_samtools/{sample}.flagstat.tsv"
+    if not config["is_paired"]:
+        input['r1'] = os.path.join(preprocessed,"{sample}.fastq.gz")
+    else:
+        input['r1'] = os.path.join(preprocessed,"{sample}_R1.fastq.gz")
+        input['r2'] = os.path.join(preprocessed,"{sample}_R2.fastq.gz")
+    return  input
+
+rule biobloom:
+    input:  unpack(biobloom_input)
+    output: table = "qc_reports/{sample}/biobloom/{sample}.biobloom_summary.tsv",
+    log:    "logs/{sample}/biobloom.log",
+    threads: 8
+    resources: mem=30
+    params: prefix = "qc_reports/{sample}/biobloom/{sample}.biobloom",
+            filters = "all",
+            ref_dir = GLOBAL_REF_PATH,
+            paired = paired,
+            max_mapped_reads_to_run = config["max_mapped_reads_to_run_biobloom"]
+    conda: "../wrappers/biobloom/env.yaml"
+    script: "../wrappers/biobloom/script.py"
+
