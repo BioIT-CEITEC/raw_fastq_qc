@@ -49,7 +49,7 @@ def biobloom_input(wildcards):
     #     preprocessed = "raw_fastq"
     preprocessed = "raw_fastq"
     input = {}
-    input['flagstats'] = "qc_reports/{sample}/qc_samtools/{sample}.flagstat.tsv"
+    #input['flagstats'] = "qc_reports/{sample}/qc_samtools/{sample}.flagstat.tsv"
     if not config["is_paired"]:
         input['r1'] = os.path.join(preprocessed,"{sample}.fastq.gz")
     else:
@@ -67,7 +67,7 @@ rule biobloom:
             filters = "all",
             ref_dir = GLOBAL_REF_PATH,
             paired = paired,
-            max_mapped_reads_to_run = config["max_mapped_reads_to_run_biobloom"]
+            #max_mapped_reads_to_run = config["max_mapped_reads_to_run_biobloom"]
     conda: "../wrappers/biobloom/env.yaml"
     script: "../wrappers/biobloom/script.py"
 
