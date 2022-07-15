@@ -12,9 +12,11 @@ GLOBAL_REF_PATH = config["globalResources"]
 sample_tab = pd.DataFrame.from_dict(config["samples"],orient="index")
 
 if not config["is_paired"]:
-    read_pair_tags = ["SE"]
+    read_pair_tags = [""]
+    paired = "SE"
 else:
-    read_pair_tags = ["R1","R2"]
+    read_pair_tags = ["_R1","_R2"]
+    paired = "PE"
 
 if not 'check_adaptors' in config:
     config['check_adaptors'] = False
