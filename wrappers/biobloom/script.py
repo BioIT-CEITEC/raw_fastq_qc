@@ -95,7 +95,7 @@ elif snakemake.params.paired == "PE":
     with open(log_filename, 'at') as f:
         f.write("## INFO: I noticed Paired-end data\n")
 
-    command = "(time " + snakemake.params.tool + " -p " + snakemake.params.prefix + \
+    command = "(time biobloomcategorizer -p " + snakemake.params.prefix + \
               " -t " + str(snakemake.threads) + \
               " -e -f '" + " ".join(filters_list) + "'" + \
               " <(zcat " + snakemake.input.r1 + ")" + \
