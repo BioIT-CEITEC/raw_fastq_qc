@@ -17,6 +17,8 @@ def merge_fastq_qc_input(wcs):
     inputs = {'html': expand("qc_reports/{sample}/raw_fastqc/{read_pair_tag}_fastqc.html",sample = sample_tab.sample_name,read_pair_tag = read_pair_tags)}
     if config['check_adaptors']:
         inputs['minion'] = "qc_reports/raw_fastq_minion_adaptors_mqc.tsv"
+    if config['biobloom']:
+        inputs['biobloom'] = expand("qc_reports/{sample}/biobloom/*",sample = sample_tab.sample_name)
     return inputs
 
 rule merge_fastq_qc:
