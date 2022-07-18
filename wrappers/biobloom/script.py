@@ -30,15 +30,15 @@ f.close()
 # if float(mapped_reads) > snakemake.params.max_mapped_reads_to_run:
 
 # set up contamination filters
-human_38 = ref_dir + "homo_sapiens/GRCh38-p10/index/BioBloomTools/human_38.bf"
-mouse    = ref_dir + "mus_musculus/GRCm38.p6-93/index/BioBloomTools/mouse.bf"
-#rat      = ref_dir + "rattus_norvegicus/Rnor_6.0-91/index/BioBloomTools/rat.bf"
-yeast    = ref_dir + "saccharomyces_cerevisiae/R64-1-1.100/index/BioBloomTools/yeast.bf"
-fruit_fly= ref_dir + "drosophila_melanogaster/BDGP6-99/index/BioBloomTools/fruit_fly.bf"
-#dog      = ref_dir + "canis_familiaris/CanFam3.1-101/index/BioBloomTools/dog.bf"
-athaliana= ref_dir + "arabidopsis/TAIR10-31/index/BioBloomTools/A.thaliana.bf"
-#brassica = ref_dir + "brassica_napus/Bra_napus_v2/index/BioBloomTools/B.napus.bf"
-c_elegans= ref_dir + "c_elegans/WBcel235-102/index/BioBloomTools/C.elegans.bf"
+human_38 = ref_dir + "/homo_sapiens/GRCh38-p10/index/BioBloomTools/human_38.bf"
+mouse    = ref_dir + "/mus_musculus/GRCm38.p6-93/index/BioBloomTools/mouse.bf"
+#rat      = ref_dir + "/rattus_norvegicus/Rnor_6.0-91/index/BioBloomTools/rat.bf"
+yeast    = ref_dir + "/saccharomyces_cerevisiae/R64-1-1.100/index/BioBloomTools/yeast.bf"
+fruit_fly= ref_dir + "/drosophila_melanogaster/BDGP6-99/index/BioBloomTools/fruit_fly.bf"
+#dog      = ref_dir + "/canis_familiaris/CanFam3.1-101/index/BioBloomTools/dog.bf"
+athaliana= ref_dir + "/arabidopsis/TAIR10-31/index/BioBloomTools/A.thaliana.bf"
+#brassica = ref_dir + "/brassica_napus/Bra_napus_v2/index/BioBloomTools/B.napus.bf"
+c_elegans= ref_dir + "/c_elegans/WBcel235-102/index/BioBloomTools/C.elegans.bf"
 
 filters_list = list()
 if snakemake.params.filters == "all":
