@@ -15,7 +15,7 @@ if not config["is_paired"]:
     read_pair_tags = ["SE"]
     paired = "SE"
 else:
-    read_pair_tags = ["_R1","_R2"]
+    read_pair_tags = ["R1","R2"]
     paired = "PE"
 
 if not 'check_adaptors' in config:
