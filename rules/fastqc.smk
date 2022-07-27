@@ -8,7 +8,7 @@ rule filesender:
     params: recipient = config["recipient"],
             subject = config["entity_name"],
             message = config["message"],
-            credentials = BR.remote(GLOBAL_REF_PATH + "/resources_info/.secret/filesender_credentials.json"),
+            credentials = BR.remote(os.path.join(config["globalResources"],"/resources_info/.secret/filesender_credentials.json")),
             res_file = BR.remote("qc_reports/")
     conda:  "../wrappers/filesender/env.yaml"
     script: "../wrappers/filesender/script.py"
