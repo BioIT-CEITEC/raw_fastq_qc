@@ -23,7 +23,7 @@ f.write("## COMMAND: "+command+"\n")
 f.close()
 shell(command)
 
-raw_tag_input_fastq = dirname(snakemake.input.raw_fastq) + "/" + snakemake.wildcards.sample + snakemake.wildcards.read_pair_tag + "_raw.fastq.gz"
+raw_tag_input_fastq = dirname(snakemake.input.raw_fastq) + "/" + snakemake.wildcards.sample + "_" + snakemake.wildcards.read_pair_tag + "_raw.fastq.gz"
 
 command = "ln -s " + basename(snakemake.input.raw_fastq) + " " + raw_tag_input_fastq + " >> "+log_filename+" 2>&1 "
 f = open(log_filename, 'at')
