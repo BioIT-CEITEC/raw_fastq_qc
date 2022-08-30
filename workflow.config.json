@@ -32,6 +32,11 @@
         "type": "int",
         "default": 12
       },
+      "biobloom": {
+        "label": "Biobloom tools",
+        "type": "bool",
+        "default": false
+      },
       "filesender": {
         "label": "FileSender",
         "type": "bool",
@@ -54,7 +59,7 @@
       "message": {
         "label": "Message for recipient:",
         "type": "string",
-        "default": "Dear customer, we are sending you the prepared fastq files from your sequencing. You have 30 days to download data. Thank you for using our facility. Best regards, Core facility of Bioinformatics and Genomics team.",
+        "default": "Dear customer, we are sending you the prepared fastq files from your sequencing. You have 29 days to download data. Thank you for using our facility. Best regards, Core facility of Bioinformatics and Genomics team.",
         "conditions": {
           "relevance": {
             "operand": "equal",
