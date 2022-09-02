@@ -9,7 +9,7 @@ shell.executable("/bin/bash")
 log_filename = str(snakemake.log)
 ref_dir = str(snakemake.params.ref_dir)
 ref_list = str(snakemake.params.ref_list)
-ref_table = ref_dir + "reference_info/biobloom_reference_sequia.txt"
+ref_table = ref_dir + "/reference_info/biobloom_reference_sequia.txt"
 
 f = open(log_filename, 'a+')
 f.write("\n##\n## RULE: biobloom \n##\n")
@@ -34,8 +34,8 @@ f.close()
 # if float(mapped_reads) > snakemake.params.max_mapped_reads_to_run:
 
 # set up contamination filters
-biobloom_ref = pd.read_csv(ref_table,sep=";")
-biobloom_ref["path"] = ref_dir + biobloom_ref["path"]
+biobloom_ref = pd.read_csv(ref_table, sep=";")
+biobloom_ref["path"] = ref_dir + "/" + biobloom_ref["path"]
 ref_list = ref_list.split(";")
 filters_list = list()
 for r in ref_list:
