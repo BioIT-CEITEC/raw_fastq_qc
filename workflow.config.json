@@ -37,6 +37,20 @@
         "type": "bool",
         "default": false
       },
+      "biobloom_ref": {
+        "label": "Biobloom reference species",
+        "type": "string",
+        "default": "H.sapiens;M.musculus;A.thaliana;D.melanogaster;C.elegans;S.cerevisiae",
+        "conditions": {
+          "relevance": {
+            "operand": "equal",
+            "negation": false,
+            "values": {
+              "biobloom": true
+            }
+          }
+        }
+      },
       "filesender": {
         "label": "FileSender",
         "type": "bool",

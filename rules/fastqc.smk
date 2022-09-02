@@ -66,7 +66,8 @@ rule biobloom:
     threads: 8
     resources: mem=30
     params: prefix = "qc_reports/{sample}/biobloom/{sample}.biobloom",
-            filters = "all",
+            #filters = "all",
+            ref_list = config["biobloom_ref"],
             ref_dir = GLOBAL_REF_PATH,
             paired = paired,
             #max_mapped_reads_to_run = config["max_mapped_reads_to_run_biobloom"]
