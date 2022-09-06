@@ -22,8 +22,8 @@ def merge_fastq_qc_input(wcs):
     inputs = {'html': BR.remote(expand("qc_reports/{sample}/raw_fastqc/{read_pair_tag}_fastqc.zip",sample = sample_tab.sample_name,read_pair_tag = read_pair_tags))}
     if config['check_adaptors']:
         inputs['minion'] = BR.remote("qc_reports/raw_fastq_minion_adaptors_mqc.tsv")
-    if config['biobloom']:
-        inputs['biobloom'] = BR.remote(expand("qc_reports/{sample}/biobloom/{sample}.biobloom_summary.tsv",sample=sample_tab.sample_name))
+    # if config['biobloom']:
+    #     inputs['biobloom'] = BR.remote(expand("qc_reports/{sample}/biobloom/{sample}.biobloom_summary.tsv",sample=sample_tab.sample_name))
     return inputs
 
 rule merge_fastq_qc:
