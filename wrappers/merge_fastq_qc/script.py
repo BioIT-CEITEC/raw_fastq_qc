@@ -21,6 +21,8 @@ if hasattr(snakemake.input, 'minion'):
     search_path += " "+dirname(snakemake.input.minion)
 if hasattr(snakemake.input, 'biobloom'):
     search_path += " "+" ".join([dirname(biobloom_tsv) for biobloom_tsv in snakemake.input.biobloom])
+if hasattr(snakemake.input, 'run_stats'):
+    search_path += " "+dirname(snakemake.input.run_stats)
 
 command = "multiqc -f -n " + snakemake.output.html + " " + search_path + \
               " --cl_config \"{{read_count_multiplier: 0.001, read_count_prefix: 'K', read_count_desc: 'thousands' }}\" >> "+log_filename+" 2>&1"
