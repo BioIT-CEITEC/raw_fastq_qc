@@ -5,7 +5,6 @@
     "label": "Raw fastq QC",
     "type": "raw_fastq_qc",
     "inputs": "raw_fastq/{sample}*fastq.gz",
-    "inputs_optional": "sequencing_run_info/Stats.json",
     "outputs": [
       "qc_reports/*"
     ],
