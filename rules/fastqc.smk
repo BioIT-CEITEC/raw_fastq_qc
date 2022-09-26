@@ -19,8 +19,6 @@ def merge_fastq_qc_input(wcs):
         inputs['minion'] = "qc_reports/raw_fastq_minion_adaptors_mqc.tsv"
     if config['biobloom']:
         inputs['biobloom'] = expand("qc_reports/{sample}/biobloom/{sample}.biobloom_summary.tsv",sample = sample_tab.sample_name)
-    if os.path.isfile("sequencing_run_info/Stats.json"):
-        inputs['run_stats'] = "sequencing_run_info/Stats.json"
     return inputs
 
 rule merge_fastq_qc:
