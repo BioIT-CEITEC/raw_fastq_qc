@@ -6,6 +6,7 @@ min_version("5.18.0")
 configfile: "config.json"
 
 GLOBAL_REF_PATH = config["globalResources"]
+GLOBAL_TMPD_PATH = "./tmp/"
 
 ##### Config processing #####
 
@@ -22,6 +23,12 @@ if not 'check_adaptors' in config:
     config['check_adaptors'] = False
 if not 'min_adapter_matches' in config:
     config['min_adapter_matches'] = 12
+if not 'species_detector' in config:
+    config['species_detector'] = False
+if not "max_reads_for_sp_detector" in config:
+    config["max_reads_for_sp_detector"] = 1000
+if not "evalue_for_sp_detector" in config:
+    config["evalue_for_sp_detector"] = 1e-15
 
 wildcard_constraints:
     sample = "|".join(sample_tab.sample_name),

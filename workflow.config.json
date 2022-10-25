@@ -31,7 +31,16 @@
       "min_adapter_matches": {
         "label": "Min length of adaptor match (Minion)",
         "type": "int",
-        "default": 12
+        "default": 12,
+        "conditions": {
+          "relevance": {
+            "operand": "equal",
+            "negation": false,
+            "values": {
+              "check_adaptors": true
+            }
+          }
+        }
       },
       "biobloom": {
         "label": "Biobloom tools",
@@ -48,6 +57,39 @@
             "negation": false,
             "values": {
               "biobloom": true
+            }
+          }
+        }
+      },
+      "species_detector": {
+        "label": "Species detector",
+        "type": "bool",
+        "default": true
+      },
+      "max_reads_for_sp_detector": {
+        "label": "Number of reads to use for species detection",
+        "type": "int",
+        "default": 1000,
+        "conditions": {
+          "relevance": {
+            "operand": "equal",
+            "negation": false,
+            "values": {
+              "species_detector": true
+            }
+          }
+        }
+      },
+      "evalue_for_sp_detector": {
+        "label": "E-value cutof for species detection",
+        "type": "string",
+        "default": "1e-15",
+        "conditions": {
+          "relevance": {
+            "operand": "equal",
+            "negation": false,
+            "values": {
+              "species_detector": true
             }
           }
         }
