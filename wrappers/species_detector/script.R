@@ -19,12 +19,12 @@ fastq_file = snakemake@input[["fastq"]]
 taxdbd = snakemake@input[['taxdbd']]
 taxdbi = snakemake@input[['taxdbi']]
 outtab = snakemake@output[['table']]
-threads= snakemake@threads
+threads= as.numeric(snakemake@threads)
 ntdb   = snakemake@params[['ntdb']]
 fasta  = snakemake@params[["fasta"]]
 blast  = snakemake@params[["blast"]]
-nreads = snakemake@params[['nreads']]
-evalue = snakemake@params[['evalue']]
+nreads = as.numeric(snakemake@params[['nreads']])
+evalue = as.numeric(snakemake@params[['evalue']])
 tmpd   = snakemake@params[['tmpd']]
 
 cmd = paste0("( time seqtk seq -a ",fastq_file,"| seqtk sample -s 123 - ",nreads," ) > ",fasta," 2>> ",logfile)
@@ -51,7 +51,7 @@ cat("## Reading BLAST output into R for post-processing\n")
 tab = fread(file = blast, sep = '\t', header = F, col.names = colnames)
 
 if(tab[,.N] == 0 || tab[eval <= evalue,.N] == 0) {
-  cat("## Writing empty summary table\n")
+  cat("## Writing empty summary table: ",outtab,"\n")
   cat(paste0("# Input file: ",fastq_file,"\n"), file = outtab)
   cat(paste0("# Number of reads with BLAST hits to nt DB (e-value < ",evalue,"): ",0,"/",nreads,"\n"), 
       file = outtab, append = T)
@@ -63,7 +63,7 @@ if(tab[,.N] == 0 || tab[eval <= evalue,.N] == 0) {
         append = T,
         quote = F)
 } else {
-  cat("## Writing summary table\n")
+  cat("## Writing summary table: ",outtab,"\n")
   cat(paste0("# Input file: ",fastq_file,"\n"), file = outtab)
   cat(paste0("# Number of reads with BLAST hits to nt DB (e-value < ",evalue,"): ",tab[eval <= evalue, .N],"/",nreads,"\n"), 
       file = outtab, append = T)

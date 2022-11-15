@@ -17,8 +17,8 @@ library(data.table)
 
 intab = snakemake@input[["table"]]
 outtab = snakemake@output[['table']]
-nreads = snakemake@params[['nreads']]
-evalue = snakemake@params[['evalue']]
+nreads = as.numeric(snakemake@params[['nreads']])
+evalue = as.numeric(snakemake@params[['evalue']])
 tmpd = snakemake@params[['tmpd']]
 top = snakemake@params[['top_sp']]
 
@@ -44,7 +44,7 @@ tab = rbind(tab, as.list(unmapped))
 cat("## Writing summary table down\n")
 cat('# id: "Species detection summary table"\n', file = outtab)
 cat('# section_name: "Species detection"\n', file = outtab, append = T)
-cat('# description: "Species detection against <a href=https://www.ncbi.nlm.nih.gov/nucleotide/>Nucleotide database</a> for randomly subsampled',nreads,'reads with valid hits having E-value > ',evalue,'"\n', file = outtab, append = T)
+cat('# description: "Species detection against <a href=https://www.ncbi.nlm.nih.gov/nucleotide/>Nucleotide database</a> for randomly subsampled',nreads,'reads with valid hits having E-value <',evalue,'"\n', file = outtab, append = T)
 cat('# format: "tsv"\n', file = outtab, append = T)
 cat('# plot_type: "bargraph"\n', file = outtab, append = T)
 fwrite(as.data.table(t(tab), keep.rownames = T),
