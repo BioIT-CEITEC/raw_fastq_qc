@@ -8,6 +8,8 @@ configfile: "config.json"
 GLOBAL_REF_PATH = config["globalResources"]
 GLOBAL_TMPD_PATH = "./tmp/"
 
+os.makedirs(GLOBAL_TMPD_PATH, exist_ok=True)
+
 ##### Config processing #####
 
 sample_tab = pd.DataFrame.from_dict(config["samples"],orient="index")
