@@ -25,7 +25,7 @@ shell(command)
 
 raw_tag_input_fastq = dirname(snakemake.input.raw_fastq) + "/" + snakemake.wildcards.sample + "_" + snakemake.wildcards.read_pair_tag + "_raw.fastq.gz"
 
-command = "ln -sf " + basename(snakemake.input.raw_fastq) + " " + raw_tag_input_fastq + " >> "+log_filename+" 2>&1 "
+command = "mv " + basename(snakemake.input.raw_fastq) + " " + raw_tag_input_fastq + " >> "+log_filename+" 2>&1 "
 f = open(log_filename, 'at')
 f.write("## COMMAND: "+command+"\n")
 f.close()
@@ -37,7 +37,7 @@ f.write("## COMMAND: "+command+"\n")
 f.close()
 shell(command)
 
-command = "unlink " + raw_tag_input_fastq + " >> "+log_filename+" 2>&1 "
+command = "mv " + raw_tag_input_fastq + " " + basename(snakemake.input.raw_fastq) + " >> "+log_filename+" 2>&1 "
 f = open(log_filename, 'at')
 f.write("## COMMAND: "+command+"\n")
 f.close()

@@ -31,11 +31,11 @@ cmd = paste0("( time seqtk seq -a ",fastq_file,"| seqtk sample -s 123 - ",nreads
 cat("## COMMAND: ",cmd,"\n")
 shell(cmd)
 
-cmd = paste0("ln -sf ",taxdbd," ./ >> ",logfile," 2>&1")
+cmd = paste0("cp ",taxdbd," ./ >> ",logfile," 2>&1")
 cat("## COMMAND: ",cmd,"\n")
 shell(cmd)
 
-cmd = paste0("ln -sf ",taxdbi," ./ >> ",logfile," 2>&1")
+cmd = paste0("cp ",taxdbi," ./ >> ",logfile," 2>&1")
 cat("## COMMAND: ",cmd,"\n")
 shell(cmd)
 
