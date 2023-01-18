@@ -12,9 +12,9 @@ f = open(log_filename, 'wt')
 f.write("\n##\n## RULE: raw_fastq_qc \n##\n")
 f.close()
 
-version = str(subprocess.Popen("conda list ", shell=True, stdout=subprocess.PIPE).communicate()[0], 'utf-8')
+version = str(subprocess.Popen("conda list 2>&1", shell=True, stdout=subprocess.PIPE).communicate()[0], 'utf-8')
 f = open(log_filename, 'at')
-f.write("## CONDA: "+version+"\n")
+f.write("## CONDA:\n"+version+"\n")
 f.close()
 
 command = "mkdir -p " + dirname(snakemake.output.html) + " >> "+log_filename+" 2>&1"
@@ -25,7 +25,7 @@ shell(command)
 
 raw_tag_input_fastq = dirname(snakemake.input.raw_fastq) + "/" + snakemake.wildcards.sample + "_" + snakemake.wildcards.read_pair_tag + "_raw.fastq.gz"
 
-command = "ln -sf " + basename(snakemake.input.raw_fastq) + " " + raw_tag_input_fastq + " >> "+log_filename+" 2>&1 "
+command = "rsync -a " + snakemake.input.raw_fastq + " " + raw_tag_input_fastq + " >> "+log_filename+" 2>&1 "
 f = open(log_filename, 'at')
 f.write("## COMMAND: "+command+"\n")
 f.close()
@@ -37,13 +37,14 @@ f.write("## COMMAND: "+command+"\n")
 f.close()
 shell(command)
 
-command = "unlink " + raw_tag_input_fastq + " >> "+log_filename+" 2>&1 "
+command = "rm -f " + raw_tag_input_fastq + " >> "+log_filename+" 2>&1 "
 f = open(log_filename, 'at')
 f.write("## COMMAND: "+command+"\n")
 f.close()
 shell(command)
 
-command = "mv " + dirname(snakemake.output.html) + "/" + basename(raw_tag_input_fastq).replace(".fastq.gz","_fastqc.html") + " " + snakemake.output.html
+command = "mv " + dirname(snakemake.output.html) + "/" + basename(raw_tag_input_fastq).replace(".fastq.gz","_fastqc.html") +\
+          " " + snakemake.output.html+ " >> "+log_filename+" 2>&1"
 f = open(log_filename, 'at')
 f.write("## COMMAND: "+command+"\n")
 f.close()
@@ -54,7 +55,8 @@ if snakemake.wildcards.read_pair_tag == "":
 else:
     zip_out_basename = snakemake.wildcards.read_pair_tag.replace("_","") + "_fastqc.zip"
 
-command = "mv " + dirname(snakemake.output.html) + "/" + basename(raw_tag_input_fastq).replace(".fastq.gz","_fastqc.zip") + " " + dirname(snakemake.output.html) + "/" + zip_out_basename
+command = "mv " + dirname(snakemake.output.html) + "/" + basename(raw_tag_input_fastq).replace(".fastq.gz","_fastqc.zip") +\
+          " " + dirname(snakemake.output.html) + "/" + zip_out_basename+ " >> "+log_filename+" 2>&1 "
 f = open(log_filename, 'at')
 f.write("## COMMAND: "+command+"\n")
 f.close()
