@@ -81,7 +81,7 @@
         }
       },
       "evalue_for_sp_detector": {
-        "label": "E-value cutof for species detection",
+        "label": "E-value cutoff for species detection",
         "type": "string",
         "default": "1e-15",
         "conditions": {
