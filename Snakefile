@@ -10,16 +10,21 @@ GLOBAL_TMPD_PATH = config["globalTmpdPath"]
 
 os.makedirs(GLOBAL_TMPD_PATH, exist_ok=True)
 
+##### BioRoot utilities #####
+module BR:
+    snakefile: gitlab("bioroots/bioroots_utilities", path="bioroots_utilities.smk",branch="master")
+    config: config
+
+use rule * from BR as other_*
+
 ##### Config processing #####
 
-sample_tab = pd.DataFrame.from_dict(config["samples"],orient="index")
+sample_tab = BR.load_sample()
 
-if not config["is_paired"]:
-    read_pair_tags = ["SE"]
-    paired = "SE"
-else:
-    read_pair_tags = ["R1","R2"]
-    paired = "PE"
+read_pair_tags = BR.set_read_pair_qc_tags()
+paired = BR.set_paired_tags()
+
+##### Default missing parameter #####
 
 if not 'check_adaptors' in config:
     config['check_adaptors'] = False
@@ -36,7 +41,7 @@ wildcard_constraints:
     sample = "|".join(sample_tab.sample_name),
     read_pair_tag = "R1|R2|SE"
 
-# ##### Target rules #####
+##### Target rules #####
 
 def all_input(wildcard):
     if config["filesender"]:

@@ -1,9 +1,13 @@
 {
   "workflow_description": {
     "name": "raw_fastq_qc",
-    "version": 1.0,
+    "version": 2.0,
     "label": "Raw fastq QC",
     "type": "raw_fastq_qc",
+    "run_parameters": {
+      "cpu": 35,
+      "memory": 65
+    },
     "inputs": "raw_fastq/{sample}*fastq.gz",
     "outputs": [
       "qc_reports/*",
