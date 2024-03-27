@@ -1,13 +1,28 @@
 {
   "workflow_description": {
     "name": "raw_fastq_qc",
-    "version": 1.0,
+    "version": 1.3,
     "label": "Raw fastq QC",
     "type": "raw_fastq_qc",
     "inputs": "raw_fastq/{sample}*fastq.gz",
     "outputs": [
-      "qc_reports/*",
-      "logs/*"
+      "qc_reports/raw_fastq_multiqc.html",
+      "qc_reports/{sample}/raw_fastqc/*",
+      "logs/{sample}/raw_fastqc*.log"
+    ],
+    "outputs_optional": [
+      "qc_reports/raw_fastq_qc.tar.gz",
+      "logs/filesender.log",
+      "qc_reports/{sample}/biobloom/{sample}.biobloom_summary.tsv",
+      "logs/{sample}/biobloom.log",
+      "qc_reports/species_detector_summary_mqc.tsv",
+      "logs/merge_detected_species.log",
+      "qc_reports/{sample}/species_detector/{sample}*.species_stats.tsv",
+      "logs/{sample}/species_detector*.log",
+      "qc_reports/raw_fastq_minion_adaptors_mqc.tsv",
+      "logs/merge_adaptors.log",
+      "qc_reports/{sample}/raw_fastq_minion/{sample}*.minion.compare",
+      "logs/{sample}/check_adaptors_{read_pair_tag}.log"
     ],
     "report_index": "qc_reports/raw_fastq_multiqc.html",
     "reports": [
