@@ -21,8 +21,8 @@ use rule * from BR as other_*
 
 sample_tab = BR.load_sample()
 
-read_pair_tags = BR.set_read_pair_qc_tags()
-paired = BR.set_paired_tags()
+read_pair_tags = BR.set_read_pair_qc_tags() # ["SE"] / ["R1", "R2"]
+paired = BR.set_paired_tags() # "SE" / "PE"
 
 ##### Default missing parameter #####
 
