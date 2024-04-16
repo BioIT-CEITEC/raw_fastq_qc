@@ -11,8 +11,6 @@
       "logs/{sample}/raw_fastqc*.log"
     ],
     "outputs_optional": [
-      "qc_reports/raw_fastq_qc.tar.gz",
-      "logs/filesender.log",
       "qc_reports/{sample}/biobloom/{sample}.biobloom_summary.tsv",
       "logs/{sample}/biobloom.log",
       "qc_reports/species_detector_summary_mqc.tsv",
@@ -106,39 +104,6 @@
             "negation": false,
             "values": {
               "species_detector": true
-            }
-          }
-        }
-      },
-      "filesender": {
-        "label": "FileSender",
-        "type": "bool",
-        "default": false
-      },
-      "recipient": {
-        "label": "Send results to (comma separated list of emails):",
-        "type": "string",
-        "default": "cfg@ceitec.muni.cz",
-        "conditions": {
-          "relevance": {
-            "operand": "equal",
-            "negation": false,
-            "values": {
-              "filesender": true
-            }
-          }
-        }
-      },
-      "message": {
-        "label": "Message for recipient:",
-        "type": "string",
-        "default": "Dear customer, we are sending you the prepared fastq files from your sequencing. You have 29 days to download data. Thank you for using our facility. Best regards, Core facility of Bioinformatics and Genomics team.",
-        "conditions": {
-          "relevance": {
-            "operand": "equal",
-            "negation": false,
-            "values": {
-              "filesender": true
             }
           }
         }

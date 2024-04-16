@@ -40,20 +40,9 @@ rule merge_adaptors:
     """
 
 
-def check_adaptors_input(wildcards):
-    if wildcards.read_pair_tag == "SE":
-        input_fastq_read_pair_tag = ""
-    else:
-        input_fastq_read_pair_tag = "_" + wildcards.read_pair_tag
-    inputs = {
-        'fastq': f'raw_fastq/{wildcards.sample}{input_fastq_read_pair_tag}.fastq.gz',
-        'fastqc': f'qc_reports/{wildcards.sample}/raw_fastqc/{wildcards.read_pair_tag}_fastqc.html'
-    }
-    return inputs
-
-
 rule check_adaptors:
-    input: unpack(check_adaptors_input)
+    input: fastq = "raw_fastq/{sample}_{read_pair_tag}.fastq.gz",
+           fastqc = "qc_reports/{sample}/raw_fastqc/{read_pair_tag}_fastqc.html"
     output: comp="qc_reports/{sample}/raw_fastq_minion/{sample}_{read_pair_tag}.minion.compare",
     log: "logs/{sample}/check_adaptors_{read_pair_tag}.log",
     params: fasta="qc_reports/{sample}/raw_fastq_minion/{sample}_{read_pair_tag}.minion.fa",

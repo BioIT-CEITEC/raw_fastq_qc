@@ -15,7 +15,7 @@ os.makedirs(GLOBAL_TMPD_PATH, exist_ok=True)
 sample_tab = pd.DataFrame.from_dict(config["samples"],orient="index")
 
 if not config["is_paired"]:
-    read_pair_tags = ["SE"]
+    read_pair_tags = ["R1"]
     paired = "SE"
 else:
     read_pair_tags = ["R1","R2"]
@@ -40,7 +40,7 @@ wildcard_constraints:
 
 def all_input(wildcard):
     if config["filesender"]:
-        return ["qc_reports/raw_fastq_qc.tar.gz","qc_reports/raw_fastq_multiqc.html"]
+        return ["raw_fastq_qc.tar.gz","qc_reports/raw_fastq_multiqc.html"]
     else:
         return "qc_reports/raw_fastq_multiqc.html"
 
