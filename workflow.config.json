@@ -80,7 +80,7 @@
       "species_detector": {
         "label": "Species detector",
         "type": "bool",
-        "default": true
+        "default": false
       },
       "max_reads_for_sp_detector": {
         "label": "Number of reads to use for species detection",
