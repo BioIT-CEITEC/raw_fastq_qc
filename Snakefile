@@ -43,14 +43,8 @@ wildcard_constraints:
 
 ##### Target rules #####
 
-def all_input(wildcard):
-    if config["filesender"]:
-        return ["qc_reports/raw_fastq_qc.tar.gz","qc_reports/raw_fastq_multiqc.html"]
-    else:
-        return "qc_reports/raw_fastq_multiqc.html"
-
 rule all:
-        input: all_input
+        input: "qc_reports/raw_fastq_multiqc.html"
 
 ##### Modules #####
 
