@@ -19,7 +19,8 @@
     "report_index": "qc_reports/raw_fastq_multiqc.html",
     "reports": [
       "qc_reports/raw_fastq_multiqc.html",
-      "qc_reports/*/*/*.tsv"
+      "qc_reports/*/*/*.tsv",
+      "logs/*"
     ]
   },
   "general_params": [
