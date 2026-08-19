@@ -23,7 +23,7 @@ This repository contains a Snakemake workflow for comprehensive quality control 
 4. **Report Generation:**
    - Combines all QC and adaptor results into a final MultiQC HTML report
 
-## File Structure
+## Directory Structure
 - `Snakefile`: Main workflow definition and configuration loading
 - `workflow.config.json`: Example configuration file
 - `rules/`: Snakemake rule modules
